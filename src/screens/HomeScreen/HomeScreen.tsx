@@ -9,7 +9,7 @@ interface HomeScreenProps extends NavigationProps {}
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const handleNavigateToProfile = () => {
-    navigation.navigate(SCREEN_NAMES.PROFILE, { userId: '123' });
+    navigation.navigate(SCREEN_NAMES.LOGIN);
   };
 
   const handleNavigateToSettings = () => {

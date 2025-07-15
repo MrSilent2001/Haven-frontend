@@ -4,6 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens';
 import { RootStackParamList } from '../types';
 import { SCREEN_NAMES } from '../constants';
+import { LoginScreen } from '../screens';
+import { RegisterScreen } from '../screens';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -14,7 +16,7 @@ const AppNavigator: React.FC = () => {
         initialRouteName={SCREEN_NAMES.HOME}
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#007AFF',
+            backgroundColor: '#F9CC48', // gold gradient start color
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
@@ -30,6 +32,18 @@ const AppNavigator: React.FC = () => {
           }}
         />
         
+        <Stack.Screen
+          name={SCREEN_NAMES.LOGIN}
+          component={LoginScreen}
+          options={{ title: 'Login' }}
+        />
+
+        <Stack.Screen
+          name={SCREEN_NAMES.REGISTER}
+          component={RegisterScreen}
+          options={{ title: 'Register' }}
+        />
+
         {/* Add more screens here as they are created */}
         {/* 
         <Stack.Screen
