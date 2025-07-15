@@ -5,6 +5,7 @@ import { HomeScreen } from '../screens';
 import { RootStackParamList } from '../types';
 import { SCREEN_NAMES } from '../constants';
 import { LoginScreen } from '../screens';
+import { RegisterScreen } from '../screens';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -35,6 +36,12 @@ const AppNavigator: React.FC = () => {
           name={SCREEN_NAMES.LOGIN}
           component={LoginScreen}
           options={{ title: 'Login' }}
+        />
+
+        <Stack.Screen
+          name={SCREEN_NAMES.REGISTER}
+          component={RegisterScreen}
+          options={{ title: 'Register' }}
         />
 
         {/* Add more screens here as they are created */}

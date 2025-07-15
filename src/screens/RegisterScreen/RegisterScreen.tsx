@@ -5,15 +5,20 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { SCREEN_NAMES } from '../../constants';
 
-const LoginScreen = () => {
+const RegisterScreen = () => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [tel, setTel] = useState('');
+  const [city, setCity] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Sign Up</Text>
       <Image source={require('../../../assets/login.png')} style={styles.image} resizeMode="contain" />
       <View style={styles.inputContainer}>
         <TextInput
@@ -22,6 +27,27 @@ const LoginScreen = () => {
           placeholderTextColor={theme.colors.secondary_text}
           value={username}
           onChangeText={setUsername}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="email"
+          placeholderTextColor={theme.colors.secondary_text}
+          value={email}
+          onChangeText={setEmail}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Tel. No"
+          placeholderTextColor={theme.colors.secondary_text}
+          value={tel}
+          onChangeText={setTel}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="City"
+          placeholderTextColor={theme.colors.secondary_text}
+          value={city}
+          onChangeText={setCity}
         />
         <View style={styles.passwordWrapper}>
           <TextInput
@@ -36,10 +62,20 @@ const LoginScreen = () => {
             <Text>{showPassword ? '🙈' : '👁️'}</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.passwordWrapper}>
+          <TextInput
+            style={styles.input}
+            placeholder="Confirm Password"
+            placeholderTextColor={theme.colors.secondary_text}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry={!showConfirmPassword}
+          />
+          <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)} style={styles.eyeIcon}>
+            <Text>{showConfirmPassword ? '🙈' : '👁️'}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate(SCREEN_NAMES.REGISTER)}>
-        <Text style={styles.linkText}>Don't you have an Account ?</Text>
-      </TouchableOpacity>
       <LinearGradient
         colors={['#F9CC48', '#D0A012']}
         style={styles.button}
@@ -47,11 +83,11 @@ const LoginScreen = () => {
         end={{ x: 1, y: 0 }}
       >
         <TouchableOpacity style={styles.buttonTouchable}>
-          <Text style={styles.buttonText}>Let's Go...</Text>
+          <Text style={styles.buttonText}>Get -In!</Text>
         </TouchableOpacity>
       </LinearGradient>
-      <TouchableOpacity>
-        <Text style={styles.forgotText}>Forgot Password ?</Text>
+      <TouchableOpacity onPress={() => navigation.navigate(SCREEN_NAMES.LOGIN)}>
+        <Text style={styles.loginText}>Already have an account?</Text>
       </TouchableOpacity>
     </View>
   );
@@ -73,9 +109,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   image: {
-    width: 180,
-    height: 140,
-    marginBottom: 32,
+    width: 220,
+    height: 180,
+    marginBottom: 24,
+    borderWidth: 2,
+    borderColor: theme.colors.border,
+    borderRadius: 8,
   },
   inputContainer: {
     width: '100%',
@@ -109,7 +148,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 12,
-    // For gradient, you can use a LinearGradient component if available
   },
   buttonTouchable: {
     width: '100%',
@@ -122,17 +160,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   },
-  linkText: {
+  loginText: {
     color: theme.colors.secondary_text_dark,
     fontWeight: 'bold',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  forgotText: {
-    color: theme.colors.link_text,
-    marginTop: 8,
+    marginTop: 4,
     textAlign: 'center',
   },
 });
 
-export default LoginScreen;
+export default RegisterScreen;
