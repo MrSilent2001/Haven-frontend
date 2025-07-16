@@ -9,7 +9,17 @@ const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
   const navigation = useNavigation();
+
+  const handleLogin = () => {
+    if (username === 'user' && password === 'pass') {
+      setError('');
+      navigation.navigate('Dashboard' as any);
+    } else {
+      setError('Invalid username or password');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -37,7 +47,7 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate(SCREEN_NAMES.REGISTER)}>
+      <TouchableOpacity onPress={() => navigation.navigate(SCREEN_NAMES.REGISTER as any)}>
         <Text style={styles.linkText}>Don't you have an Account ?</Text>
       </TouchableOpacity>
       <LinearGradient
@@ -46,10 +56,11 @@ const LoginScreen = () => {
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
       >
-        <TouchableOpacity style={styles.buttonTouchable}>
+        <TouchableOpacity style={styles.buttonTouchable} onPress={handleLogin}>
           <Text style={styles.buttonText}>Let's Go...</Text>
         </TouchableOpacity>
       </LinearGradient>
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
       <TouchableOpacity>
         <Text style={styles.forgotText}>Forgot Password ?</Text>
       </TouchableOpacity>
@@ -130,6 +141,11 @@ const styles = StyleSheet.create({
   },
   forgotText: {
     color: theme.colors.link_text,
+    marginTop: 8,
+    textAlign: 'center',
+  },
+  errorText: {
+    color: theme.colors.warning_text,
     marginTop: 8,
     textAlign: 'center',
   },

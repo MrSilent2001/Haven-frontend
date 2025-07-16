@@ -16,6 +16,9 @@ export type RootStackParamList = {
   EditProfile: undefined;
   Notifications: undefined;
   About: undefined;
+  Dashboard: undefined;
+  SearchTherapists: undefined;
+  ViewAvailableSlots: undefined;
 };
 
 export type TabParamList = {
