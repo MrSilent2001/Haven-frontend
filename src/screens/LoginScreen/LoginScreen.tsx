@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import theme from '../../styles/theme';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { SCREEN_NAMES } from '../../constants';
 
@@ -50,16 +49,9 @@ const LoginScreen = () => {
       <TouchableOpacity onPress={() => navigation.navigate(SCREEN_NAMES.REGISTER as any)}>
         <Text style={styles.linkText}>Don't you have an Account ?</Text>
       </TouchableOpacity>
-      <LinearGradient
-        colors={['#F9CC48', '#D0A012']}
-        style={styles.button}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-      >
-        <TouchableOpacity style={styles.buttonTouchable} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Let's Go...</Text>
-        </TouchableOpacity>
-      </LinearGradient>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Let's Go...</Text>
+      </TouchableOpacity>
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
       <TouchableOpacity>
         <Text style={styles.forgotText}>Forgot Password ?</Text>
@@ -71,7 +63,7 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background_light,
+    backgroundColor: '#47978d',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 24,
@@ -79,7 +71,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: theme.colors.text,
+    color: '#fff',
     marginBottom: 16,
     textAlign: 'center',
   },
@@ -95,13 +87,13 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 44,
-    borderColor: theme.colors.border,
+    borderColor: '#d7f5f0',
     borderWidth: 1,
     borderRadius: 6,
-    backgroundColor: theme.colors.inputfield_background,
+    backgroundColor: '#d7f5f0',
     paddingHorizontal: 12,
     marginBottom: 12,
-    color: theme.colors.text,
+    color: '#222',
   },
   passwordWrapper: {
     flexDirection: 'row',
@@ -120,7 +112,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 12,
-    // For gradient, you can use a LinearGradient component if available
+    backgroundColor: '#d7f5f0',
   },
   buttonTouchable: {
     width: '100%',
@@ -129,23 +121,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: theme.colors.btn_text,
+    color: '#47978d',
     fontWeight: 'bold',
     fontSize: 18,
   },
   linkText: {
-    color: theme.colors.secondary_text_dark,
+    color: '#d7f5f0',
     fontWeight: 'bold',
     marginBottom: 8,
     textAlign: 'center',
   },
   forgotText: {
-    color: theme.colors.link_text,
+    color: '#d7f5f0',
     marginTop: 8,
     textAlign: 'center',
   },
   errorText: {
-    color: theme.colors.warning_text,
+    color: '#fff',
     marginTop: 8,
     textAlign: 'center',
   },

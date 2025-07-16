@@ -8,6 +8,9 @@ const DashboardScreen = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.backBtn} onPress={() => navigation.navigate('Login' as any)}>
+        <Text style={styles.backArrow}>{'<'} Back</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>Dashboard</Text>
       <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('SearchTherapists' as any)}>
         <Text style={styles.cardTitle}>Connect with Therapists</Text>
@@ -45,6 +48,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: theme.colors.primary,
+  },
+  backBtn: {
+    position: 'absolute',
+    top: 32,
+    left: 16,
+    zIndex: 10,
+    padding: 8,
+  },
+  backArrow: {
+    fontSize: 18,
+    color: theme.colors.primary,
+    fontWeight: 'bold',
   },
 });
 

@@ -18,18 +18,14 @@ const AppNavigator: React.FC = () => {
       <Stack.Navigator
         initialRouteName={SCREEN_NAMES.HOME}
         screenOptions={{
-          headerStyle: { backgroundColor: '#a17b0d' },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerShown: false,
         }}
       >
         <Stack.Screen
           name={SCREEN_NAMES.HOME}
           component={HomeScreen}
           options={{
-            title: 'Home',
+            headerShown: false,
           }}
         />
         
