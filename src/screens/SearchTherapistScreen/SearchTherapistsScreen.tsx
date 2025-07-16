@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, TextInput } from 'react-native';
 import theme from '../../styles/theme';
+import { useNavigation } from '@react-navigation/native';
 
 const therapists = [
   {
@@ -62,6 +63,7 @@ const therapists = [
 const SearchTherapistsScreen = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [search, setSearch] = useState('');
+  const navigation = useNavigation();
 
   const filteredTherapists = therapists.filter(
     t =>
@@ -74,7 +76,10 @@ const SearchTherapistsScreen = () => {
     return (
       <TouchableOpacity
         style={[styles.card, isSelected && styles.highlightCard]}
-        onPress={() => setSelectedId(item.id)}
+        onPress={() => {
+          setSelectedId(item.id);
+          navigation.navigate('ViewAvailableSlots' as any, { therapist: item });
+        }}
         activeOpacity={0.85}
       >
         <Image source={{ uri: item.image }} style={styles.avatar} />
@@ -95,6 +100,10 @@ const SearchTherapistsScreen = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+        <Text style={styles.backArrow}>{'<'} Back</Text>
+      </TouchableOpacity>
+      <Text style={styles.heading}>Find Your Therapist Here</Text>
       <View style={styles.searchBarContainer}>
         <Text style={styles.searchIcon}>🔍</Text>
         <TextInput
@@ -123,6 +132,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#eaf6f4',
     padding: 12,
+  },
+  heading: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#222',
+    marginTop: 70,
+    marginBottom: 15,
+    textAlign: 'center',
   },
   searchBarContainer: {
     flexDirection: 'row',
@@ -250,6 +267,18 @@ const styles = StyleSheet.create({
   },
   selectedText: {
     color: '#fff',
+  },
+  backBtn: {
+    position: 'absolute',
+    top: 32,
+    left: 16,
+    zIndex: 10,
+    padding: 8,
+  },
+  backArrow: {
+    fontSize: 18,
+    color: '#fffff',
+    fontWeight: 'bold',
   },
 });
 
