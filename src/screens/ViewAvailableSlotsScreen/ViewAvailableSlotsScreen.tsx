@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     fontSize: 18,
-    color: '#fffff',
+    color: '#222',
     fontWeight: 'bold',
   },
   doctorCard: {
