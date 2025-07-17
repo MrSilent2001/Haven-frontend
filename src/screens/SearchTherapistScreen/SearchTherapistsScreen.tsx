@@ -9,7 +9,6 @@ const therapists = [
     name: 'Dr. Johan Janson',
     category: 'Endocrinologist',
     rating: 4.5,
-    reviews: 85,
     price: 'LKR50',
     image: 'https://randomuser.me/api/portraits/men/1.jpg',
   },
@@ -18,7 +17,6 @@ const therapists = [
     name: 'Dr. Marilyn Stanton',
     category: 'General Physician',
     rating: 5.0,
-    reviews: 85,
     price: 'LKR60',
     image: 'https://randomuser.me/api/portraits/women/2.jpg',
   },
@@ -27,7 +25,6 @@ const therapists = [
     name: 'Dr. Marvin McKinney',
     category: 'Cardiologist',
     rating: 4.3,
-    reviews: 85,
     price: 'LKR700',
     image: 'https://randomuser.me/api/portraits/men/3.jpg',
   },
@@ -36,7 +33,6 @@ const therapists = [
     name: 'Dr. Arlene McCoy',
     category: 'Physician',
     rating: 4.5,
-    reviews: 85,
     price: 'LKR55',
     image: 'https://randomuser.me/api/portraits/women/4.jpg',
   },
@@ -45,7 +41,6 @@ const therapists = [
     name: 'Dr. Eleanor Pena',
     category: 'Arthropathic',
     rating: 4.4,
-    reviews: 85,
     price: 'LKR65',
     image: 'https://randomuser.me/api/portraits/women/5.jpg',
   },
@@ -54,7 +49,6 @@ const therapists = [
     name: 'Dr. Kaiya Donin',
     category: 'Endocrinologist',
     rating: 5.0,
-    reviews: 85,
     price: 'LKR80',
     image: 'https://randomuser.me/api/portraits/women/6.jpg',
   },
@@ -88,7 +82,6 @@ const SearchTherapistsScreen = () => {
         <Text style={[styles.category, isSelected && styles.selectedText]}>{item.category}</Text>
         <View style={styles.row}>
           <Text style={[styles.rating, isSelected && styles.selectedText]}>★ {item.rating}</Text>
-          <Text style={[styles.reviews, isSelected && styles.selectedText]}>{item.reviews} Reviews</Text>
         </View>
         <Text style={[styles.price, isSelected && styles.selectedText]}>{item.price}</Text>
         <View style={styles.arrowBtn}>
@@ -108,7 +101,7 @@ const SearchTherapistsScreen = () => {
         <Text style={styles.searchIcon}>🔍</Text>
         <TextInput
           style={styles.searchInput}
-          placeholder="Search for doctor..."
+          placeholder="Search for therapists..."
           placeholderTextColor="#bbb"
           value={search}
           onChangeText={setSearch}

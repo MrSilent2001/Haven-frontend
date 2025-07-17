@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { FontAwesome } from '@expo/vector-icons'; // or 'react-native-vector-icons/FontAwesome'
 
 const getWeekDates = () => {
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -33,6 +34,36 @@ const ViewAvailableSlotsScreen = () => {
   const route = useRoute();
   const { therapist } = route.params as { therapist: any };
 
+  const renderStars = (rating: number) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= Math.floor(rating)) {
+        stars.push(
+          <FontAwesome key={i} name="star" size={22} color="#47978d" style={{ marginRight: 2 }} />
+        );
+      } else if (i - rating <= 0.5 && i - rating > 0) {
+        stars.push(
+          <FontAwesome key={i} name="star-half-empty" size={22} color="#47978d" style={{ marginRight: 2 }} />
+        );
+      } else {
+        stars.push(
+          <FontAwesome key={i} name="star-o" size={22} color="#b0b0b0" style={{ marginRight: 2 }} />
+        );
+      }
+    }
+    return stars;
+  };
+
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // 0 (Sun) - 6 (Sat)
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - ((dayOfWeek + 6) % 7));
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+
+  const weekLabel = `${monday.toLocaleString('default', { month: 'long' })} ${monday.getDate()} - ` +
+                    `${sunday.toLocaleString('default', { month: 'long' })} ${sunday.getDate()}, ${sunday.getFullYear()}`;
+
   return (
     <ScrollView style={styles.bg} contentContainerStyle={{ flexGrow: 1 }}>
       <View style={styles.container}>
@@ -50,10 +81,10 @@ const ViewAvailableSlotsScreen = () => {
           </View>
         </View>
         <View style={styles.ratingRow}>
-          <Text style={styles.ratingStar}>★</Text>
-          <Text style={styles.ratingText}>Rating {therapist.rating}</Text>
+          {renderStars(therapist.rating)}
+          <Text style={styles.ratingText}>{therapist.rating.toFixed(1)}</Text>
         </View>
-        <Text style={styles.monthLabel}>January 2025</Text>
+        <Text style={styles.monthLabel}>{weekLabel}</Text>
         <View style={styles.calendarContainer}>
           <FlatList
             data={weekDates}
@@ -171,19 +202,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    backgroundColor: '#47978d',
+    backgroundColor: '#fff',
     borderRadius: 16,
-    paddingHorizontal: 18,
-    paddingVertical: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     marginBottom: 18,
   },
   ratingStar: {
-    color: '#fff',
-    fontSize: 18,
-    marginRight: 6,
+    fontSize: 22,
+    marginRight: 2,
   },
   ratingText: {
-    color: '#fff',
+    color: '#222',
     fontWeight: 'bold',
     fontSize: 15,
   },
