@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, TextInput } from 'react-native';
 import theme from '../../styles/theme';
 import { useNavigation } from '@react-navigation/native';
+import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 
 const therapists = [
   {
@@ -98,7 +99,7 @@ const SearchTherapistsScreen = () => {
       </TouchableOpacity>
       <Text style={styles.heading}>Find Your Therapist Here</Text>
       <View style={styles.searchBarContainer}>
-        <Text style={styles.searchIcon}>🔍</Text>
+        <MagnifyingGlassIcon size={22} color="#222" style={{ marginRight: 8 }} />
         <TextInput
           style={styles.searchInput}
           placeholder="Search for therapists..."
@@ -123,13 +124,13 @@ const SearchTherapistsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eaf6f4',
+    backgroundColor: theme.colors.background,
     padding: 12,
   },
   heading: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#222',
+    color: '#222222',
     marginTop: 70,
     marginBottom: 15,
     textAlign: 'center',
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
   searchBarContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.background_light,
     borderRadius: 24,
     paddingHorizontal: 16,
     paddingVertical: 8,
@@ -150,13 +151,13 @@ const styles = StyleSheet.create({
   },
   searchIcon: {
     fontSize: 20,
-    color: '#bbb',
+    color: theme.colors.secondary_text,
     marginRight: 8,
   },
   searchInput: {
     flex: 1,
     fontSize: 16,
-    color: '#222',
+    color: '#222222',
     paddingVertical: 0,
   },
   list: {
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.background_light,
     borderRadius: 32,
     padding: 16,
     width: '48%',
@@ -180,12 +181,12 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
     borderWidth: 2,
-    borderColor: '#F8F5EE',
+    borderColor: theme.colors.border_light,
     position: 'relative',
   },
   highlightCard: {
-    backgroundColor: '#47978d',
-    borderColor: '#47978d',
+    backgroundColor: theme.colors.primary,
+    borderColor: theme.colors.primary,
     borderRadius: 32,
   },
   avatar: {
@@ -193,24 +194,24 @@ const styles = StyleSheet.create({
     height: 54,
     borderRadius: 27,
     marginBottom: 8,
-    backgroundColor: '#F8F5EE',
+    backgroundColor: theme.colors.border_light,
   },
   name: {
     fontWeight: 'bold',
     fontSize: 15,
-    color: '#222',
+    color: '#222222',
     marginBottom: 2,
     textAlign: 'center',
   },
   qual: {
     fontSize: 13,
-    color: '#666',
+    color: theme.colors.secondary_text,
     marginBottom: 2,
     textAlign: 'center',
   },
   category: {
     fontSize: 13,
-    color: '#666',
+    color: theme.colors.secondary_text,
     marginBottom: 6,
     textAlign: 'center',
   },
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   rating: {
-    color: '#F9CC48',
+    color: theme.colors.primary,
     fontWeight: 'bold',
     marginRight: 6,
     fontSize: 13,
@@ -231,7 +232,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   price: {
-    color: '#14467C',
+    color: theme.colors.primary,
     fontWeight: 'bold',
     fontSize: 14,
     marginTop: 2,
@@ -241,7 +242,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 12,
     bottom: 12,
-    backgroundColor: '#F8F5EE',
+    backgroundColor: theme.colors.border_light,
     borderRadius: 16,
     width: 32,
     height: 32,
@@ -254,12 +255,12 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   arrow: {
-    color: '#14467C',
+    color: theme.colors.primary,
     fontSize: 18,
     fontWeight: 'bold',
   },
   selectedText: {
-    color: '#fff',
+    color: theme.colors.background_light,
   },
   backBtn: {
     position: 'absolute',
@@ -270,7 +271,7 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     fontSize: 18,
-    color: '#222',
+    color: '#222222',
     fontWeight: 'bold',
   },
 });

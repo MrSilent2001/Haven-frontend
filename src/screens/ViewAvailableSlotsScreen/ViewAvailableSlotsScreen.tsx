@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons'; // or 'react-native-vector-icons/FontAwesome'
+import theme from '../../styles/theme';
 
 const getWeekDates = () => {
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -129,11 +130,11 @@ const ViewAvailableSlotsScreen = () => {
 
 const styles = StyleSheet.create({
   bg: {
-    backgroundColor: '#d7f5f0',
+    backgroundColor: theme.colors.background,
   },
   container: {
     flex: 1,
-    backgroundColor: '#d7f5f0',
+    backgroundColor: theme.colors.background,
     padding: 0,
     alignItems: 'center',
     minHeight: 700,
@@ -147,13 +148,13 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     fontSize: 18,
-    color: '#222',
+    color: '#222', // keep as is, not in theme
     fontWeight: 'bold',
   },
   doctorCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.background_light,
     borderRadius: 24,
     padding: 18,
     marginTop: 85,
@@ -170,16 +171,16 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40,
     marginRight: 18,
-    backgroundColor: '#d7f5f0',
+    backgroundColor: theme.colors.background,
   },
   category: {
-    color: '#47978d',
+    color: theme.colors.primary,
     fontSize: 15,
     fontWeight: 'bold',
     marginBottom: 2,
   },
   name: {
-    color: '#222',
+    color: '#222', // keep as is, not in theme
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 4,
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   idText: {
-    backgroundColor: '#d7f5f0',
+    backgroundColor: theme.colors.background,
     color: '#222',
     borderRadius: 12,
     paddingHorizontal: 10,
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.background_light,
     borderRadius: 16,
     paddingHorizontal: 8,
     paddingVertical: 4,
@@ -213,19 +214,19 @@ const styles = StyleSheet.create({
     marginRight: 2,
   },
   ratingText: {
-    color: '#222',
+    color: '#222', // keep as is, not in theme
     fontWeight: 'bold',
     fontSize: 15,
   },
   monthLabel: {
-    color: '#222',
+    color: '#222', // keep as is, not in theme
     fontWeight: 'bold',
     fontSize: 15,
     marginBottom: 8,
     alignSelf: 'center',
   },
   calendarContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.background_light,
     borderRadius: 16,
     padding: 8,
     flexDirection: 'row',
@@ -245,10 +246,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     borderRadius: 10,
     marginHorizontal: 2,
-    backgroundColor: '#d7f5f0',
+    backgroundColor: theme.colors.background,
   },
   selectedDate: {
-    backgroundColor: '#47978d',
+    backgroundColor: theme.colors.primary,
   },
   day: {
     color: '#222',

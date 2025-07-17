@@ -63,7 +63,7 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#47978d',
+    backgroundColor: theme.colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 24,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: '#fff',
+    color: theme.colors.background_light,
     marginBottom: 16,
     textAlign: 'center',
   },
@@ -87,13 +87,13 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 44,
-    borderColor: '#d7f5f0',
+    borderColor: theme.colors.border_light,
     borderWidth: 1,
     borderRadius: 6,
-    backgroundColor: '#d7f5f0',
+    backgroundColor: theme.colors.background,
     paddingHorizontal: 12,
     marginBottom: 12,
-    color: '#222',
+    color: "#222",
   },
   passwordWrapper: {
     flexDirection: 'row',
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 12,
-    backgroundColor: '#d7f5f0',
+    backgroundColor: theme.colors.btn,
   },
   buttonTouchable: {
     width: '100%',
@@ -121,23 +121,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: '#47978d',
+    color: theme.colors.btn_text,
     fontWeight: 'bold',
     fontSize: 18,
   },
   linkText: {
-    color: '#d7f5f0',
+    color: theme.colors.background,
     fontWeight: 'bold',
     marginBottom: 8,
     textAlign: 'center',
   },
   forgotText: {
-    color: '#d7f5f0',
+    color: theme.colors.background,
     marginTop: 8,
     textAlign: 'center',
   },
   errorText: {
-    color: '#fff',
+    color: theme.colors.background_light,
     marginTop: 8,
     textAlign: 'center',
   },
