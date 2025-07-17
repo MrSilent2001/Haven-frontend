@@ -39,6 +39,14 @@ export type MainStackParamList = {
   Notifications: undefined;
 };
 
+export type ExercisesStackParamList = {
+  ExercisesHome: undefined;
+  GuidedMeditation: undefined;
+  BreathingExercises: undefined;
+  BreathingBreathCount: { pattern: string; name: string };
+  BreathingSession: { pattern: string; name: string; duration?: number };
+};
+
 // Screen props types
 export interface BaseScreenProps<T extends keyof RootStackParamList = keyof RootStackParamList> {
   navigation: any;

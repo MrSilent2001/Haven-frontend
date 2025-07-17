@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import theme from '../../styles/theme';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { SCREEN_NAMES } from '../../constants';
+import { StatusBar } from 'expo-status-bar';
 
 const RegisterScreen = () => {
   const [username, setUsername] = useState('');
@@ -17,7 +18,8 @@ const RegisterScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
       <Text style={styles.title}>Sign Up</Text>
       <Image source={require('../../../assets/login.png')} style={styles.image} resizeMode="contain" />
       <View style={styles.inputContainer}>
@@ -89,7 +91,7 @@ const RegisterScreen = () => {
       <TouchableOpacity onPress={() => navigation.navigate(SCREEN_NAMES.LOGIN)}>
         <Text style={styles.loginText}>Already have an account?</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

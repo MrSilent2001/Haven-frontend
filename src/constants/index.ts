@@ -20,6 +20,12 @@ export const SCREEN_NAMES = {
   SETTINGS: 'Settings',
   LOGIN: 'Login',
   REGISTER: 'Register',
+  EXERCISES: 'Exercises',
+  EXERCISES_HOME: 'ExercisesHome',
+  GUIDED_MEDITATION: 'GuidedMeditation',
+  BREATHING_EXERCISES: 'BreathingExercises',
+  BREATHING_SESSION: 'BreathingSession',
+  BREATHING_BREATH_COUNT: 'BreathingBreathCount',
 } as const;
 
 export const API_ENDPOINTS = {
