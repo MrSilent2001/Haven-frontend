@@ -20,6 +20,7 @@ export const SCREEN_NAMES = {
   SETTINGS: 'Settings',
   LOGIN: 'Login',
   REGISTER: 'Register',
+  DASHBOARD: 'Dashboard',
 } as const;
 
 export const API_ENDPOINTS = {

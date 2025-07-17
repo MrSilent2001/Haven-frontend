@@ -16,6 +16,7 @@ export type RootStackParamList = {
   EditProfile: undefined;
   Notifications: undefined;
   About: undefined;
+  Dashboard: undefined;
 };
 
 export type TabParamList = {
