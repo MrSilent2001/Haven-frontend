@@ -31,6 +31,7 @@ const slots = [
 const ViewAvailableSlotsScreen = () => {
   const [selected, setSelected] = useState(0);
   const [selectedSlot, setSelectedSlot] = useState('');
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
   const { therapist } = route.params as { therapist: any };
@@ -120,10 +121,33 @@ const ViewAvailableSlotsScreen = () => {
             ))}
           </View>
         </View>
-        <TouchableOpacity style={styles.bookBtn}>
+        <TouchableOpacity
+          style={[
+            styles.bookBtn,
+            (!selectedSlot || selected === null) && { opacity: 0.5 }
+          ]}
+          disabled={!selectedSlot || selected === null}
+          onPress={() => {
+            setShowConfirmation(true);
+            setTimeout(() => {
+              setShowConfirmation(false);
+              navigation.navigate('SearchTherapists');
+            }, 1500);
+          }}
+        >
           <Text style={styles.bookBtnText}>Book Appointment</Text>
         </TouchableOpacity>
       </View>
+      {showConfirmation && (
+  <View style={styles.confirmationOverlay}>
+    <View style={styles.confirmationBox}>
+      <View style={styles.checkCircle}>
+        <Text style={styles.checkMark}>✓</Text>
+      </View>
+      <Text style={styles.confirmedText}>Appointment Confirmed!</Text>
+    </View>
+  </View>
+)}
     </ScrollView>
   );
 };
@@ -334,6 +358,45 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 18,
+  },
+  confirmationOverlay: {
+    position: 'absolute',
+    top: 0, left: 0, right: 0, bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.15)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 100,
+  },
+  confirmationBox: {
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 32,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  checkCircle: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: '#47978d',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 18,
+  },
+  checkMark: {
+    color: '#fff',
+    fontSize: 44,
+    fontWeight: 'bold',
+  },
+  confirmedText: {
+    color: '#222',
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
