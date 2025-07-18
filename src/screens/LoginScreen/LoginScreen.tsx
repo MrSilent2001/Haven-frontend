@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import theme from '../../styles/theme';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { SCREEN_NAMES } from '../../constants';
 
@@ -9,7 +8,17 @@ const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
   const navigation = useNavigation();
+
+  const handleLogin = () => {
+    if (username === 'user' && password === 'pass') {
+      setError('');
+      navigation.navigate('Dashboard' as any);
+    } else {
+      setError('Invalid username or password');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -37,19 +46,13 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate(SCREEN_NAMES.REGISTER)}>
+      <TouchableOpacity onPress={() => navigation.navigate(SCREEN_NAMES.REGISTER as any)}>
         <Text style={styles.linkText}>Don't you have an Account ?</Text>
       </TouchableOpacity>
-      <LinearGradient
-        colors={['#F9CC48', '#D0A012']}
-        style={styles.button}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-      >
-        <TouchableOpacity style={styles.buttonTouchable}>
-          <Text style={styles.buttonText}>Let's Go...</Text>
-        </TouchableOpacity>
-      </LinearGradient>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Let's Go...</Text>
+      </TouchableOpacity>
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
       <TouchableOpacity>
         <Text style={styles.forgotText}>Forgot Password ?</Text>
       </TouchableOpacity>
@@ -60,7 +63,7 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background_light,
+    backgroundColor: theme.colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 24,
@@ -68,7 +71,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: theme.colors.text,
+    color: theme.colors.background_light,
     marginBottom: 16,
     textAlign: 'center',
   },
@@ -84,13 +87,13 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 44,
-    borderColor: theme.colors.border,
+    borderColor: theme.colors.border_light,
     borderWidth: 1,
     borderRadius: 6,
-    backgroundColor: theme.colors.inputfield_background,
+    backgroundColor: theme.colors.background,
     paddingHorizontal: 12,
     marginBottom: 12,
-    color: theme.colors.text,
+    color: "#222",
   },
   passwordWrapper: {
     flexDirection: 'row',
@@ -109,7 +112,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 12,
-    // For gradient, you can use a LinearGradient component if available
+    backgroundColor: theme.colors.btn,
   },
   buttonTouchable: {
     width: '100%',
@@ -123,13 +126,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   linkText: {
-    color: theme.colors.secondary_text_dark,
+    color: theme.colors.background,
     fontWeight: 'bold',
     marginBottom: 8,
     textAlign: 'center',
   },
   forgotText: {
-    color: theme.colors.link_text,
+    color: theme.colors.background,
+    marginTop: 8,
+    textAlign: 'center',
+  },
+  errorText: {
+    color: theme.colors.background_light,
     marginTop: 8,
     textAlign: 'center',
   },

@@ -6,6 +6,9 @@ import { RootStackParamList } from '../types';
 import { SCREEN_NAMES } from '../constants';
 import { LoginScreen } from '../screens';
 import { RegisterScreen } from '../screens';
+import { DashboardScreen } from '../screens';
+import { SearchTherapistsScreen } from '../screens';
+import { ViewAvailableSlotsScreen } from '../screens';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -15,20 +18,14 @@ const AppNavigator: React.FC = () => {
       <Stack.Navigator
         initialRouteName={SCREEN_NAMES.HOME}
         screenOptions={{
-          headerStyle: {
-            backgroundColor: '#F9CC48', // gold gradient start color
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerShown: false,
         }}
       >
         <Stack.Screen
           name={SCREEN_NAMES.HOME}
           component={HomeScreen}
           options={{
-            title: 'Home',
+            headerShown: false,
           }}
         />
         
@@ -42,6 +39,24 @@ const AppNavigator: React.FC = () => {
           name={SCREEN_NAMES.REGISTER}
           component={RegisterScreen}
           options={{ title: 'Register' }}
+        />
+
+        <Stack.Screen
+          name="Dashboard"
+          component={DashboardScreen}
+          options={{ title: 'Dashboard' }}
+        />
+
+        <Stack.Screen
+          name="SearchTherapists"
+          component={SearchTherapistsScreen}
+          options={{ title: 'Search Therapists' }}
+        />
+
+        <Stack.Screen
+          name="ViewAvailableSlots"
+          component={ViewAvailableSlotsScreen}
+          options={{ title: 'Available Slots' }}
         />
 
         {/* Add more screens here as they are created */}
