@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, TextInput, Alert } from 'react-native';
 import theme from '../../styles/theme';
 import { useNavigation } from '@react-navigation/native';
 import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
@@ -55,10 +55,31 @@ const therapists = [
   },
 ];
 
+const appointments = [
+  {
+    id: 'a1',
+    therapistName: 'Dr. Johan Janson',
+    category: 'Endocrinologist',
+    date: '2024-06-15',
+    time: '04:30 PM',
+  },
+  {
+    id: 'a2',
+    therapistName: 'Dr. Marilyn Stanton',
+    category: 'General Physician',
+    date: '2024-06-18',
+    time: '07:00 PM',
+  },
+];
+
 const SearchTherapistsScreen = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const navigation = useNavigation();
+  const [activeTab, setActiveTab] = useState<'search' | 'appointments'>('search');
+  const [appointmentsList, setAppointmentsList] = useState(appointments);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [appointmentToDelete, setAppointmentToDelete] = useState(null);
 
   const filteredTherapists = therapists.filter(
     t =>
@@ -98,25 +119,100 @@ const SearchTherapistsScreen = () => {
         <Text style={styles.backArrow}>{'<'} Back</Text>
       </TouchableOpacity>
       <Text style={styles.heading}>Find Your Therapist Here</Text>
-      <View style={styles.searchBarContainer}>
-        <MagnifyingGlassIcon size={22} color="#222" style={{ marginRight: 8 }} />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search for therapists..."
-          placeholderTextColor="#bbb"
-          value={search}
-          onChangeText={setSearch}
-        />
+      <View style={styles.tabBar}>
+        <TouchableOpacity
+          style={[styles.tab, activeTab === 'search' && styles.activeTab]}
+          onPress={() => setActiveTab('search')}
+        >
+          <Text style={[styles.tabText, activeTab === 'search' && styles.activeTabText]}>
+            Search Therapists
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.tab, activeTab === 'appointments' && styles.activeTab]}
+          onPress={() => setActiveTab('appointments')}
+        >
+          <Text style={[styles.tabText, activeTab === 'appointments' && styles.activeTabText]}>
+            View Appointments
+          </Text>
+        </TouchableOpacity>
       </View>
-      <FlatList
-        data={filteredTherapists}
-        renderItem={renderTherapist}
-        keyExtractor={item => item.id}
-        numColumns={2}
-        columnWrapperStyle={styles.rowWrap}
-        contentContainerStyle={styles.list}
-        showsVerticalScrollIndicator={false}
-      />
+      {activeTab === 'search' && (
+        <>
+          <View style={styles.searchBarContainer}>
+            <MagnifyingGlassIcon size={22} color="#222" style={{ marginRight: 8 }} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search for therapists..."
+              placeholderTextColor="#bbb"
+              value={search}
+              onChangeText={setSearch}
+            />
+          </View>
+          <FlatList
+            data={filteredTherapists}
+            renderItem={renderTherapist}
+            keyExtractor={item => item.id}
+            numColumns={2}
+            columnWrapperStyle={styles.rowWrap}
+            contentContainerStyle={styles.list}
+            showsVerticalScrollIndicator={false}
+          />
+        </>
+      )}
+      {activeTab === 'appointments' && (
+        <FlatList
+          data={appointmentsList}
+          keyExtractor={item => item.id}
+          contentContainerStyle={{ paddingTop: 24, paddingBottom: 24 }}
+          renderItem={({ item }) => (
+            <View style={styles.appointmentCard}>
+              <Text style={styles.appointmentName}>{item.therapistName}</Text>
+              <Text style={styles.appointmentCategory}>{item.category}</Text>
+              <View style={styles.appointmentRow}>
+                <Text style={styles.appointmentLabel}>Date: </Text>
+                <Text style={styles.appointmentValue}>{item.date}</Text>
+              </View>
+              <View style={styles.appointmentRow}>
+                <Text style={styles.appointmentLabel}>Time: </Text>
+                <Text style={styles.appointmentValue}>{item.time}</Text>
+              </View>
+              <TouchableOpacity
+                style={styles.deleteBtn}
+                onPress={() => {
+                  setAppointmentToDelete(item);
+                  setShowDeleteModal(true);
+                }}
+              >
+                <Text style={styles.deleteBtnText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          ListEmptyComponent={<Text style={{ color: theme.colors.secondary_text, textAlign: 'center', marginTop: 40 }}>No appointments to show.</Text>}
+        />
+      )}
+      {showDeleteModal && (
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalBox}>
+            <Text style={styles.modalTitle}>Delete Appointment</Text>
+            <Text style={styles.modalMsg}>Are you sure you want to delete this appointment?</Text>
+            <View style={styles.modalBtnRow}>
+              <TouchableOpacity onPress={() => setShowDeleteModal(false)} style={styles.modalCancelBtn}>
+                <Text style={styles.modalCancelText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setAppointmentsList(appointmentsList.filter(a => a.id !== appointmentToDelete.id));
+                  setShowDeleteModal(false);
+                }}
+                style={styles.modalDeleteBtn}
+              >
+                <Text style={styles.modalDeleteText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )}
     </View>
   );
 };
@@ -273,6 +369,137 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#222222',
     fontWeight: 'bold',
+  },
+  tabBar: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    backgroundColor: theme.colors.background_light,
+    borderRadius: 24,
+    overflow: 'hidden',
+    alignSelf: 'center',
+  },
+  tab: {
+    flex: 1,
+    paddingVertical: 12,
+    alignItems: 'center',
+    backgroundColor: theme.colors.background_light,
+  },
+  activeTab: {
+    backgroundColor: theme.colors.primary,
+  },
+  tabText: {
+    color: theme.colors.primary,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  activeTabText: {
+    color: theme.colors.background_light,
+  },
+  appointmentCard: {
+    backgroundColor: theme.colors.background_light,
+    borderRadius: 18,
+    padding: 18,
+    marginHorizontal: 16,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  appointmentName: {
+    color: theme.colors.primary,
+    fontWeight: 'bold',
+    fontSize: 17,
+    marginBottom: 2,
+  },
+  appointmentCategory: {
+    color: theme.colors.secondary_text,
+    fontSize: 15,
+    marginBottom: 8,
+  },
+  appointmentRow: {
+    flexDirection: 'row',
+    marginBottom: 2,
+  },
+  appointmentLabel: {
+    color: theme.colors.primary,
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
+  appointmentValue: {
+    color: '#222222',
+    fontSize: 14,
+  },
+  deleteBtn: {
+    marginTop: 10,
+    alignSelf: 'flex-end',
+    backgroundColor: theme.colors.primary,
+    paddingVertical: 6,
+    paddingHorizontal: 18,
+    borderRadius: 16,
+  },
+  deleteBtnText: {
+    color: theme.colors.background_light,
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
+  modalOverlay: {
+    position: 'absolute',
+    top: 0, left: 0, right: 0, bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.15)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 100,
+  },
+  modalBox: {
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 28,
+    alignItems: 'center',
+    width: 300,
+  },
+  modalTitle: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: '#222',
+    marginBottom: 8,
+  },
+  modalMsg: {
+    color: '#222',
+    fontSize: 15,
+    marginBottom: 24,
+    textAlign: 'center',
+  },
+  modalBtnRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  modalCancelBtn: {
+    flex: 1,
+    paddingVertical: 10,
+    marginRight: 8,
+    borderRadius: 8,
+    backgroundColor: '#d7f5f0',
+    alignItems: 'center',
+  },
+  modalCancelText: {
+    color: '#47978d',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  modalDeleteBtn: {
+    flex: 1,
+    paddingVertical: 10,
+    borderRadius: 8,
+    backgroundColor: '#47978d',
+    alignItems: 'center',
+  },
+  modalDeleteText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 
