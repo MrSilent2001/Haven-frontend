@@ -10,12 +10,15 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   const handleLogin = () => {
-    if (username === 'user' && password === 'pass') {
+    if (username === 'test' && password === '1234') {
       setError('');
-      navigation.navigate('Dashboard' as any);
+      navigation.navigate('Tabs' as any, {
+        screen: 'HomeTab',
+        params: { screen: 'Dashboard' }
+      });
     } else {
       setError('Invalid username or password');
     }

@@ -39,9 +39,9 @@ const ExercisesScreen = () => {
           <Text style={styles.greeting}>Hi, <Text style={styles.name}>Stephanie!</Text></Text>
           <Text style={styles.question}>What do you prefer today?</Text>
         </View>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Text style={styles.menu}>{MENU}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       {/* Available Practices */}
@@ -49,7 +49,7 @@ const ExercisesScreen = () => {
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Available Practices</Text>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8 }}>
+        <View style={styles.practiceCardsContainer}>
           <TouchableOpacity
             style={[styles.practiceCard, practices[0].highlight && styles.practiceCardHighlight]}
             onPress={() => navigation.navigate('GuidedMeditation' as any)}
@@ -66,7 +66,7 @@ const ExercisesScreen = () => {
             <Image source={practices[1].image} style={styles.practiceImage} resizeMode="contain" />
             <Text style={styles.practiceTitle}>{practices[1].title}</Text>
           </TouchableOpacity>
-        </ScrollView>
+        </View>
       </View>
 
       {/* Weekly Statistics */}
@@ -107,20 +107,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     marginBottom: 12,
+    marginTop: 35,
   },
   avatar: {
     fontSize: 38,
     marginRight: 12,
   },
   greeting: {
-    fontSize: 18,
+    fontSize: 28,
     color: '#222',
     fontWeight: '600',
   },
   name: {
     color: GREEN,
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 28,
   },
   question: {
     fontSize: 14,
@@ -151,6 +152,10 @@ const styles = StyleSheet.create({
     color: GREEN,
     fontWeight: '600',
     fontSize: 14,
+  },
+  practiceCardsContainer: {
+    flexDirection: 'row',
+    gap: 10,
   },
   practiceCard: {
     width: CARD_WIDTH,

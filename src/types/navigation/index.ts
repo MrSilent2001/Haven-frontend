@@ -25,6 +25,7 @@ export type RootStackParamList = {
   BreathingSession: { pattern: string; name: string; duration?: number };
   SearchTherapists: undefined;
   ViewAvailableSlots: undefined;
+  Tabs: undefined;
 };
 
 export type TabParamList = {

@@ -8,34 +8,34 @@ import { SCREEN_NAMES } from '../../constants';
 interface HomeScreenProps extends NavigationProps {}
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
-  const handleNavigateToProfile = () => {
-    navigation.navigate(SCREEN_NAMES.DASHBOARD);
-  };
 
-  const handleNavigateToSettings = () => {
-    navigation.navigate(SCREEN_NAMES.SETTINGS);
+
+
+
+  const handleNavigateToLogin = () => {
+    // Navigate to login screen
+    const rootNavigation = navigation.getParent()?.getParent();
+    rootNavigation?.navigate(SCREEN_NAMES.LOGIN);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Welcome to Haven</Text>
-        <Text style={styles.subtitle}>Your frontend project is ready to go!</Text>
+        <Text style={styles.subtitle}>Your mental health companion is ready to help!</Text>
+        <Text style={styles.loginInfo}>Login with: username "test" and password "1234"</Text>
         
         <View style={styles.buttonContainer}>
           <Button
-            title="Go to Profile"
-            onPress={handleNavigateToProfile}
+            title="Login to Dashboard"
+            onPress={handleNavigateToLogin}
             variant="primary"
             fullWidth
           />
           
-          <Button
-            title="Open Settings"
-            onPress={handleNavigateToSettings}
-            variant="outline"
-            fullWidth
-          />
+          
+          
+    
         </View>
       </View>
     </SafeAreaView>
@@ -70,6 +70,13 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     gap: 16,
+  },
+  loginInfo: {
+    fontSize: 14,
+    color: theme.colors.secondary_text,
+    textAlign: 'center',
+    marginBottom: 30,
+    fontStyle: 'italic',
   },
 });
 

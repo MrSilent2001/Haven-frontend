@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     color: '#47978d',
     textAlign: 'center',
     marginTop: 8,
-    marginBottom: 2,
+    marginBottom: 20,
     letterSpacing: 0.5,
   },
   headerAccent: {

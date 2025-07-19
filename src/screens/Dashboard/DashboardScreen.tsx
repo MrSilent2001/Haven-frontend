@@ -29,7 +29,19 @@ const Dashboard = () => {
     const navigation = useNavigation<DashboardNavigationProp>();
 
     const handleCardPress = (screen: string) => {
-        navigation.navigate(screen as keyof RootStackParamList);
+        // Navigate based on the screen type
+        if (screen === SCREEN_NAMES.EXERCISES) {
+            // Switch to exercises tab
+            const tabNavigation = navigation.getParent();
+            tabNavigation?.navigate('ExercisesTab');
+        } else if (screen === SCREEN_NAMES.SEARCH_THERAPISTS) {
+            // Switch to profile tab where therapist search is located
+            const tabNavigation = navigation.getParent();
+            tabNavigation?.navigate('ProfileTab', { screen: 'SearchTherapists' });
+        } else {
+            // For other screens, navigate within the current stack
+            navigation.navigate(screen as keyof RootStackParamList);
+        }
     };
 
     const renderCard = ({ item }: { item: typeof CARDS[number] }) => (
@@ -47,7 +59,7 @@ const Dashboard = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Welcome Back 👋</Text>
+            <Text style={styles.title}>Welcome Stephanie 👋</Text>
             <Text style={styles.subtitle}>How can we help you today?</Text>
             <FlatList
                 data={CARDS}
@@ -77,6 +89,7 @@ const styles = StyleSheet.create({
         color: theme.colors.text,
         marginBottom: 6,
         textAlign: 'left',
+        marginTop: 40,
     },
     subtitle: {
         fontSize: 16,
