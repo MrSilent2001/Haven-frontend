@@ -6,7 +6,11 @@ import { RootStackParamList } from '../types';
 import { SCREEN_NAMES } from '../constants';
 import { LoginScreen } from '../screens';
 import { RegisterScreen } from '../screens';
+
 import ExercisesStackNavigator from './ExercisesStackNavigator';
+
+import DashboardScreen from "../screens/Dashboard";
+
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -46,13 +50,14 @@ const AppNavigator: React.FC = () => {
           options={{ title: 'Register' }}
         />
 
-        <Stack.Screen
-          name={SCREEN_NAMES.EXERCISES}
-          component={ExercisesStackNavigator}
-          options={{ headerShown: false }}
-        />
-
-        {/* Add more screens here as they are created */}
+          <Stack.Screen
+              name={SCREEN_NAMES.DASHBOARD}
+              component={DashboardScreen}
+              options={{
+                  title: 'Profile',
+              }}
+          />
+   
       </Stack.Navigator>
     </NavigationContainer>
   );

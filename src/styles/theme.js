@@ -39,6 +39,8 @@ const theme3 = {
     link_text: '#14467C',
 
     inputfield_background: "#F8F5EE",
+
+    card_background: "#f8f8f8"
   },
   linearGradientColors: {
     container: ['#F8F5EE', '#FFFFFF'],
