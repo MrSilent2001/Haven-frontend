@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SCREEN_NAMES } from '../constants';
-import { ExercisesStackParamList } from '../types/navigation';
+import { ExercisesStackParamList } from '../types';
 import ExercisesScreen from '../screens/ExercisesScreen/ExercisesScreen';
 import GuidedMeditationScreen from '../screens/ExercisesScreen/GuidedMeditationScreen';
 import BreathingExercisesScreen from '../screens/ExercisesScreen/BreathingExercisesScreen';
