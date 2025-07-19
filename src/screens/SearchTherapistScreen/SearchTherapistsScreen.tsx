@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, TextInput, Alert } from 'react-native';
 import theme from '../../styles/theme';
 import { useNavigation } from '@react-navigation/native';
-import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
+import { MagnifyingGlassIcon, ArrowLeftIcon } from 'react-native-heroicons/outline';
 
 const therapists = [
   {
@@ -116,7 +116,7 @@ const SearchTherapistsScreen = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-        <Text style={styles.backArrow}>{'<'} Back</Text>
+        <ArrowLeftIcon size={24} color="#222" />
       </TouchableOpacity>
       <Text style={styles.heading}>Find Your Therapist Here</Text>
       <View style={styles.tabBar}>
