@@ -8,23 +8,28 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Feather } from '@expo/vector-icons';
 import theme from '../../styles/theme';
+import { RootStackParamList } from '../../types';
+import { SCREEN_NAMES } from '../../constants';
+
+type DashboardNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const CARDS = [
-    { title: 'Daily Mood Check', icon: 'smile', screen: 'MoodCheck' },
-    { title: 'Health Tips', icon: 'heart', screen: 'HealthTips' },
-    { title: 'Meditation & Exercises', icon: 'sun', screen: 'Meditation' },
-    { title: 'Therapists & Consultants', icon: 'user-check', screen: 'Therapists' },
-    { title: 'Smart AI', icon: 'cpu', screen: 'SmartAI' },
-    { title: 'Crisis Support', icon: 'alert-triangle', screen: 'CrisisSupport' },
+    { title: 'Daily Mood Check', icon: 'smile', screen: SCREEN_NAMES.HOME },
+    { title: 'Health Tips', icon: 'heart', screen: SCREEN_NAMES.HOME },
+    { title: 'Meditation & Exercises', icon: 'sun', screen: SCREEN_NAMES.EXERCISES },
+    { title: 'Therapists & Consultants', icon: 'user-check', screen: SCREEN_NAMES.SEARCH_THERAPISTS },
+    { title: 'Smart AI', icon: 'cpu', screen: SCREEN_NAMES.HOME },
+    { title: 'Crisis Support', icon: 'alert-triangle', screen: SCREEN_NAMES.HOME },
 ];
 
 const Dashboard = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<DashboardNavigationProp>();
 
     const handleCardPress = (screen: string) => {
-        navigation.navigate(screen as never);
+        navigation.navigate(screen as keyof RootStackParamList);
     };
 
     const renderCard = ({ item }: { item: typeof CARDS[number] }) => (

@@ -1,31 +1,31 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList } from 'react-native';
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { ExercisesStackParamList } from '../../types/navigation';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Dimensions } from 'react-native';
+import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { RootStackParamList } from '../../types/navigation';
 import { SCREEN_NAMES } from '../../constants';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
+type BreathingBreathCountNavigationProp = NativeStackNavigationProp<RootStackParamList>;
+
+const parsePattern = (pattern: string) => pattern.split('-').map(Number);
+
 const options = [
-  { label: 'Quick Reset', breaths: 6 },
-  { label: 'Focused Calm', breaths: 12 },
-  { label: 'Deep Relaxation', breaths: 18 },
+  { label: 'Quick Session', breaths: 10 },
+  { label: 'Standard Session', breaths: 20 },
+  { label: 'Extended Session', breaths: 30 },
 ];
 
-function parsePattern(pattern: string) {
-  return pattern.split('-').map(Number);
-}
-
-export const BreathingBreathCountScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<ExercisesStackParamList>>();
-  const route = useRoute<RouteProp<ExercisesStackParamList, 'BreathingBreathCount'>>();
+const BreathingBreathCountScreen = () => {
+  const navigation = useNavigation<BreathingBreathCountNavigationProp>();
+  const route = useRoute<RouteProp<RootStackParamList, 'BreathingBreathCount'>>();
   const { pattern = '4-4-4-4', name = 'Breathing' } = route.params ?? {};
   const cycleDuration = parsePattern(pattern).reduce((a, b) => a + b, 0);
 
   const handleSelect = (breaths: number) => {
     const duration = breaths * cycleDuration;
-    navigation.navigate(SCREEN_NAMES.BREATHING_SESSION, { pattern, name, duration });
+    navigation.navigate('BreathingSession' as any, { pattern, name, duration });
   };
 
   return (
@@ -52,39 +52,35 @@ export const BreathingBreathCountScreen = () => {
   );
 };
 
-const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   topic: {
     fontSize: 26,
     fontWeight: 'bold',
     color: '#47978d',
     textAlign: 'center',
-    marginTop: 8,
-    marginBottom: 18,
-    letterSpacing: 0.5,
+    marginBottom: 24,
   },
   card: {
     backgroundColor: '#d7f5f0',
-    borderRadius: 20,
-    padding: 24,
-    marginBottom: 18,
+    borderRadius: 15,
+    padding: 20,
+    marginBottom: 16,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 2,
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
   },
   cardTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#222',
-    marginBottom: 4,
+    color: '#47978d',
+    marginBottom: 5,
   },
   cardBreaths: {
-    fontSize: 15,
-    color: '#47978d',
-    fontWeight: '600',
+    fontSize: 14,
+    color: '#666',
   },
 });
 

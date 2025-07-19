@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Animated, Dimensions, Image } from 'react-native';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ExercisesStackParamList } from '../../types/navigation';
+import { RootStackParamList } from '../../types/navigation';
 import { SCREEN_NAMES } from '../../constants';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useFocusEffect } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { Audio } from 'expo-av';
+
+type BreathingSessionNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const GREEN = '#47978d';
 const { width, height } = Dimensions.get('window');
@@ -20,8 +22,8 @@ function parsePattern(pattern: string) {
 }
 
 export const BreathingSessionScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<ExercisesStackParamList>>();
-  const route = useRoute<RouteProp<ExercisesStackParamList, 'BreathingSession'>>();
+  const navigation = useNavigation<BreathingSessionNavigationProp>();
+  const route = useRoute<RouteProp<RootStackParamList, 'BreathingSession'>>();
   const { pattern = '4-4-4-4', name = 'Breathing', duration = 60 } = route.params ?? {};
   const durations = parsePattern(pattern);
   const totalPhases = durations.length;
@@ -75,7 +77,7 @@ export const BreathingSessionScreen = () => {
   useEffect(() => {
     if (elapsed >= duration) {
       setRunning(false);
-      navigation.navigate(SCREEN_NAMES.EXERCISES_HOME);
+      navigation.navigate('Exercises' as any);
     }
   }, [elapsed, duration, navigation]);
 

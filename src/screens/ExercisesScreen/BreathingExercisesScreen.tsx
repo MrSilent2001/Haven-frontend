@@ -1,12 +1,14 @@
 import React, { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ExercisesStackParamList } from '../../types/navigation';
+import { RootStackParamList } from '../../types/navigation';
 import { SCREEN_NAMES } from '../../constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FlatList, View, Text, Image, TouchableOpacity, StyleSheet, Alert, Animated, Easing } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
+
+type BreathingExercisesNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const CARD_BG = '#d7f5f0';
 const BUTTON_BG = '#47978d';
@@ -54,8 +56,8 @@ const patterns = [
   },
 ];
 
-export const BreathingExercisesScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<ExercisesStackParamList>>();
+const BreathingExercisesScreen = () => {
+  const navigation = useNavigation<BreathingExercisesNavigationProp>();
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const handleStart = (pattern: string, name: string) => {
@@ -73,7 +75,7 @@ export const BreathingExercisesScreen = () => {
         easing: Easing.out(Easing.ease),
       }),
     ]).start(() => {
-      navigation.navigate(SCREEN_NAMES.BREATHING_BREATH_COUNT, { pattern, name });
+      navigation.navigate('BreathingBreathCount' as any, { pattern, name });
     });
   };
 

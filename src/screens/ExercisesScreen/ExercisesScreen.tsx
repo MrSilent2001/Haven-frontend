@@ -4,7 +4,9 @@ import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SCREEN_NAMES } from '../../constants';
-import { ExercisesStackParamList } from '../../types/navigation';
+import { RootStackParamList } from '../../types/navigation';
+
+type ExercisesNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const GREEN = '#47978d';
 const LIGHT_GREEN = '#d7f5f0';
@@ -26,8 +28,8 @@ const practices = [
   },
 ];
 
-export const ExercisesScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<ExercisesStackParamList>>();
+const ExercisesScreen = () => {
+  const navigation = useNavigation<ExercisesNavigationProp>();
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
@@ -50,7 +52,7 @@ export const ExercisesScreen = () => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8 }}>
           <TouchableOpacity
             style={[styles.practiceCard, practices[0].highlight && styles.practiceCardHighlight]}
-            onPress={() => navigation.navigate(SCREEN_NAMES.GUIDED_MEDITATION)}
+            onPress={() => navigation.navigate('GuidedMeditation' as any)}
             activeOpacity={0.8}
           >
             <Image source={practices[0].image} style={styles.practiceImage} resizeMode="contain" />
@@ -58,7 +60,7 @@ export const ExercisesScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.practiceCard, practices[1].highlight && styles.practiceCardHighlight]}
-            onPress={() => navigation.navigate(SCREEN_NAMES.BREATHING_EXERCISES)}
+            onPress={() => navigation.navigate('BreathingExercises' as any)}
             activeOpacity={0.8}
           >
             <Image source={practices[1].image} style={styles.practiceImage} resizeMode="contain" />
@@ -87,6 +89,8 @@ export const ExercisesScreen = () => {
     </View>
   );
 };
+
+export default ExercisesScreen;
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const CARD_WIDTH = SCREEN_WIDTH * 0.44;
@@ -242,6 +246,4 @@ const styles = StyleSheet.create({
     backgroundColor: GREEN,
     borderRadius: 1,
   },
-});
-
-export default ExercisesScreen; 
+}); 

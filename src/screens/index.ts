@@ -12,7 +12,7 @@ export { default as BreathingExercisesScreen } from './ExercisesScreen/Breathing
 export { default as BreathingBreathCountScreen } from './ExercisesScreen/BreathingBreathCountScreen';
 export { default as BreathingSessionScreen } from './ExercisesScreen/BreathingSessionScreen'; 
 
-export { default as DashboardScreen } from './DashboardScreen'; 
+export { default as DashboardScreen } from './Dashboard/DashboardScreen'; 
 export { default as SearchTherapistsScreen } from './SearchTherapistScreen'; 
 export { default as ViewAvailableSlotsScreen } from './ViewAvailableSlotsScreen'; 
 

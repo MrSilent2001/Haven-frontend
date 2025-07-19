@@ -17,16 +17,14 @@ export type RootStackParamList = {
   Notifications: undefined;
   About: undefined;
   Dashboard: undefined;
-
-  SearchTherapists: undefined;
-  ViewAvailableSlots: undefined;
-
   Exercises: undefined;
   ExercisesHome: undefined;
   BreathingBreathCount: { pattern: string; name: string };
   GuidedMeditation: undefined;
   BreathingExercises: undefined;
   BreathingSession: { pattern: string; name: string; duration?: number };
+  SearchTherapists: undefined;
+  ViewAvailableSlots: undefined;
 };
 
 export type TabParamList = {

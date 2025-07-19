@@ -27,6 +27,8 @@ export const SCREEN_NAMES = {
   GUIDED_MEDITATION: 'GuidedMeditation',
   BREATHING_EXERCISES: 'BreathingExercises',
   BREATHING_SESSION: 'BreathingSession',
+  SEARCH_THERAPISTS: 'SearchTherapists',
+  VIEW_AVAILABLE_SLOTS: 'ViewAvailableSlots',
 } as const;
 
 export const API_ENDPOINTS = {
