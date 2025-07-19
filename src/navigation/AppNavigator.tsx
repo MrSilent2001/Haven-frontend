@@ -10,13 +10,19 @@ import { DashboardScreen } from '../screens';
 import { SearchTherapistsScreen } from '../screens';
 import { ViewAvailableSlotsScreen } from '../screens';
 
+import ExercisesStackNavigator from './ExercisesStackNavigator';
+
+import DashboardScreen from "../screens/Dashboard";
+
+
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={SCREEN_NAMES.HOME}
+        // TEMPORARY: Set Exercises as initial screen for testing
+        initialRouteName={SCREEN_NAMES.EXERCISES}
         screenOptions={{
           headerShown: false,
         }}
@@ -41,6 +47,7 @@ const AppNavigator: React.FC = () => {
           options={{ title: 'Register' }}
         />
 
+
         <Stack.Screen
           name="Dashboard"
           component={DashboardScreen}
@@ -59,24 +66,7 @@ const AppNavigator: React.FC = () => {
           options={{ title: 'Available Slots' }}
         />
 
-        {/* Add more screens here as they are created */}
-        {/* 
-        <Stack.Screen
-          name={SCREEN_NAMES.PROFILE}
-          component={ProfileScreen}
-          options={{
-            title: 'Profile',
-          }}
-        />
-        
-        <Stack.Screen
-          name={SCREEN_NAMES.SETTINGS}
-          component={SettingsScreen}
-          options={{
-            title: 'Settings',
-          }}
-        />
-        */}
+
       </Stack.Navigator>
     </NavigationContainer>
   );

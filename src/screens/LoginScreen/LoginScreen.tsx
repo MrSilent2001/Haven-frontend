@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import theme from '../../styles/theme';
 import { useNavigation } from '@react-navigation/native';
 import { SCREEN_NAMES } from '../../constants';
+import { StatusBar } from 'expo-status-bar';
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
@@ -21,7 +22,8 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
       <Text style={styles.title}>Login</Text>
       <Image source={require('../../../assets/login.png')} style={styles.image} resizeMode="contain" />
       <View style={styles.inputContainer}>
@@ -56,7 +58,7 @@ const LoginScreen = () => {
       <TouchableOpacity>
         <Text style={styles.forgotText}>Forgot Password ?</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
