@@ -23,5 +23,12 @@ export * from './common';
 // These can be removed after updating all imports
 export type { User, AuthState } from './auth';
 export type { ApiResponse } from './api';
-export type { NavigationProps, RootStackParamList } from './navigation';
-export type { Theme } from './common'; 
+export type { NavigationProps } from './navigation';
+export type { Theme } from './common';
+export type RootStackParamList = {
+  Home: undefined;
+  Login: undefined;
+  Register: undefined;
+  Exercises: undefined;
+  // Add other screens here as needed
+}; 

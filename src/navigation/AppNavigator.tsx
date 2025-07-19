@@ -6,7 +6,11 @@ import { RootStackParamList } from '../types';
 import { SCREEN_NAMES } from '../constants';
 import { LoginScreen } from '../screens';
 import { RegisterScreen } from '../screens';
+
+import ExercisesStackNavigator from './ExercisesStackNavigator';
+
 import DashboardScreen from "../screens/Dashboard";
+
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -14,7 +18,8 @@ const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={SCREEN_NAMES.HOME}
+        // TEMPORARY: Set Exercises as initial screen for testing
+        initialRouteName={SCREEN_NAMES.EXERCISES}
         screenOptions={{
           headerStyle: {
             backgroundColor: '#F9CC48', // gold gradient start color
@@ -52,24 +57,7 @@ const AppNavigator: React.FC = () => {
                   title: 'Profile',
               }}
           />
-        {/* Add more screens here as they are created */}
-        {/* 
-        <Stack.Screen
-          name={SCREEN_NAMES.PROFILE}
-          component={ProfileScreen}
-          options={{
-            title: 'Profile',
-          }}
-        />
-        
-        <Stack.Screen
-          name={SCREEN_NAMES.SETTINGS}
-          component={SettingsScreen}
-          options={{
-            title: 'Settings',
-          }}
-        />
-        */}
+   
       </Stack.Navigator>
     </NavigationContainer>
   );
