@@ -11,10 +11,6 @@ const { width, height } = Dimensions.get('window');
 interface HomeScreenProps extends NavigationProps {}
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
-
-
-
-
   const handleGetStarted = () => {
     navigation.navigate(SCREEN_NAMES.LOGIN);
   };

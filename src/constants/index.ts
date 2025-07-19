@@ -29,6 +29,8 @@ export const SCREEN_NAMES = {
   BREATHING_SESSION: 'BreathingSession',
   SEARCH_THERAPISTS: 'SearchTherapists',
   VIEW_AVAILABLE_SLOTS: 'ViewAvailableSlots',
+  HEALTH_TIPS: 'HealthTips',
+  DAILY_MOOD: 'DailyMood'
 } as const;
 
 export const API_ENDPOINTS = {

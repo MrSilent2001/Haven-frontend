@@ -7,7 +7,6 @@ import {
   BreathingBreathCountScreen, 
   BreathingSessionScreen 
 } from '../../screens';
-import { SCREEN_NAMES } from '../../constants';
 
 export type ExercisesStackParamList = {
   ExercisesHome: undefined;

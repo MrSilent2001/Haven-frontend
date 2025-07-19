@@ -21,8 +21,8 @@ const CARDS = [
     { title: 'Health Tips', icon: 'heart', screen: SCREEN_NAMES.HOME },
     { title: 'Meditation & Exercises', icon: 'sun', screen: SCREEN_NAMES.EXERCISES },
     { title: 'Therapists & Consultants', icon: 'user-check', screen: SCREEN_NAMES.SEARCH_THERAPISTS },
-    { title: 'Smart AI', icon: 'cpu', screen: SCREEN_NAMES.HOME },
-    { title: 'Crisis Support', icon: 'alert-triangle', screen: SCREEN_NAMES.HOME },
+    { title: 'Smart AI', icon: 'cpu', screen: SCREEN_NAMES.HOME, premium: true },
+    { title: 'Crisis Support', icon: 'alert-triangle', screen: SCREEN_NAMES.HOME, premium: true },
 ];
 
 const Dashboard = () => {
@@ -37,25 +37,39 @@ const Dashboard = () => {
         } else if (screen === SCREEN_NAMES.SEARCH_THERAPISTS) {
             // Switch to profile tab where therapist search is located
             const tabNavigation = navigation.getParent();
-            tabNavigation?.navigate('ProfileTab', { screen: 'SearchTherapists' });
+            tabNavigation?.navigate('SearchTherapists', { screen: 'SearchTherapists' });
+        }else if (screen === SCREEN_NAMES.HEALTH_TIPS) {
+            // Switch to profile tab where therapist search is located
+            const tabNavigation = navigation.getParent();
+            tabNavigation?.navigate('HealthTips', { screen: 'HealthTips' });
         } else {
             // For other screens, navigate within the current stack
             navigation.navigate(screen as keyof RootStackParamList);
         }
     };
 
-    const renderCard = ({ item }: { item: typeof CARDS[number] }) => (
-        <TouchableOpacity
-            style={styles.card}
-            onPress={() => handleCardPress(item.screen)}
-            activeOpacity={0.85}
-        >
-            <View style={styles.iconWrapper}>
-                <Feather name={item.icon as any} size={32} color={theme.colors.primary} />
-            </View>
-            <Text style={styles.cardText}>{item.title}</Text>
-        </TouchableOpacity>
-    );
+    const renderCard = ({ item }: { item: typeof CARDS[number] }) => {
+        const isPremium = item.premium;
+
+        return (
+            <TouchableOpacity
+                style={[styles.card, isPremium && styles.disabledCard]}
+                onPress={() => !isPremium && handleCardPress(item.screen)}
+                activeOpacity={isPremium ? 1 : 0.85}
+            >
+                <View style={styles.iconWrapper}>
+                    <Feather name={item.icon as any} size={32} color={theme.colors.primary} />
+                </View>
+                <Text style={styles.cardText}>{item.title}</Text>
+
+                {isPremium && (
+                    <View style={styles.premiumBadge}>
+                        <Text style={styles.premiumBadgeText}>Premium</Text>
+                    </View>
+                )}
+            </TouchableOpacity>
+        );
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -129,6 +143,23 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: theme.colors.text,
         textAlign: 'center',
+    },
+    premiumBadge: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        backgroundColor: '#FFD700',
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 12,
+    },
+    premiumBadgeText: {
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: '#000',
+    },
+    disabledCard: {
+        opacity: 0.5,
     },
 });
 

@@ -1,113 +1,154 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  TextInput,
+  Image,
+  Modal,
+  Pressable,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Feather } from '@expo/vector-icons';
+import { Feather, Entypo } from '@expo/vector-icons';
 import theme from '../../styles/theme';
-import { SearchTherapistsScreen, ViewAvailableSlotsScreen } from '../../screens';
-
-export type ProfileStackParamList = {
-  ProfileHome: undefined;
-  SearchTherapists: undefined;
-  ViewAvailableSlots: undefined;
-  Settings: undefined;
-};
-
-const ProfileStack = createStackNavigator<ProfileStackParamList>();
-
-// Profile Home Screen Component
-const ProfileHomeScreen: React.FC = () => {
-  const navigation = useNavigation<any>();
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.avatarContainer}>
-          <Feather name="user" size={60} color={theme.colors.primary} />
-        </View>
-        <Text style={styles.name}>Stephanie Johnson</Text>
-        <Text style={styles.email}>stephanie@example.com</Text>
-      </View>
-
-      <View style={styles.menuContainer}>
-        <TouchableOpacity style={styles.menuItem}>
-          <Feather name="user" size={24} color={theme.colors.primary} />
-          <Text style={styles.menuText}>Edit Profile</Text>
-          <Feather name="chevron-right" size={20} color={theme.colors.secondary_text} />
-        </TouchableOpacity>
-
-        <TouchableOpacity 
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('SearchTherapists' as any)}
-        >
-          <Feather name="user-check" size={24} color={theme.colors.primary} />
-          <Text style={styles.menuText}>Find Therapists</Text>
-          <Feather name="chevron-right" size={20} color={theme.colors.secondary_text} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <Feather name="calendar" size={24} color={theme.colors.primary} />
-          <Text style={styles.menuText}>My Appointments</Text>
-          <Feather name="chevron-right" size={20} color={theme.colors.secondary_text} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <Feather name="settings" size={24} color={theme.colors.primary} />
-          <Text style={styles.menuText}>Settings</Text>
-          <Feather name="chevron-right" size={20} color={theme.colors.secondary_text} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <Feather name="help-circle" size={24} color={theme.colors.primary} />
-          <Text style={styles.menuText}>Help & Support</Text>
-          <Feather name="chevron-right" size={20} color={theme.colors.secondary_text} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <Feather name="log-out" size={24} color="#e74c3c" />
-          <Text style={[styles.menuText, { color: '#e74c3c' }]}>Sign Out</Text>
-          <Feather name="chevron-right" size={20} color={theme.colors.secondary_text} />
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
-  );
-};
 
 const ProfileTab: React.FC = () => {
+  const navigation = useNavigation<any>();
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const [profileData, setProfileData] = useState({
+    name: 'Stephanie Johnson',
+    email: 'stephanie@gmail.com',
+    phone: '0712345678',
+    city: 'Colombo',
+  });
+
+  const handleChange = (field: keyof typeof profileData, value: string) => {
+    setProfileData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleLogout = () => {
+    setShowMenu(false);
+    navigation.navigate('Home');
+  };
+
+  const handleClose = () => {
+    setShowMenu(false);
+    const parentNav = navigation.getParent();
+    parentNav?.navigate('Tabs' as any, {
+      screen: 'HomeTab',
+      params: { screen: 'Dashboard' }
+    });
+  };
+
+  const toggleEditMode = () => {
+    setIsEditMode(true);
+    setShowMenu(false);
+  };
+
+  const handleSave = () => {
+    setIsEditMode(false);
+    // You can call an API here to persist changes if needed
+  };
+
   return (
-    <ProfileStack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <ProfileStack.Screen
-        name="ProfileHome"
-        component={ProfileHomeScreen}
-        options={{
-          title: 'Profile',
-        }}
-      />
-      <ProfileStack.Screen
-        name="SearchTherapists"
-        component={SearchTherapistsScreen}
-        options={{
-          title: 'Find Therapists',
-        }}
-      />
-      <ProfileStack.Screen
-        name="ViewAvailableSlots"
-        component={ViewAvailableSlotsScreen}
-        options={{
-          title: 'Available Slots',
-        }}
-      />
-    </ProfileStack.Navigator>
+      <SafeAreaView style={styles.container}>
+        {/* Menu Button */}
+        <TouchableOpacity style={styles.menuIcon} onPress={() => setShowMenu(true)}>
+          <Entypo name="dots-three-vertical" size={20} color={theme.colors.text} />
+        </TouchableOpacity>
+
+        {/* Menu Dropdown */}
+        <Modal visible={showMenu} transparent animationType="fade">
+          <Pressable style={styles.menuOverlay} onPress={() => setShowMenu(false)}>
+            <View style={styles.dropdownMenu}>
+              <TouchableOpacity onPress={toggleEditMode}>
+                <Text style={styles.dropdownItem}>Edit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleLogout}>
+                <Text style={styles.dropdownItem}>Logout</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleClose}>
+                <Text style={styles.dropdownItem}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </Pressable>
+        </Modal>
+
+        <View style={styles.header}>
+          <View style={styles.avatarContainer}>
+            <Image
+                source={{ uri: 'https://i.pravatar.cc/300?img=10' }}
+                style={styles.avatar}
+            />
+            {isEditMode && (
+                <TouchableOpacity style={styles.editIcon}>
+                  <Feather name="camera" size={18} color="#fff" />
+                </TouchableOpacity>
+            )}
+          </View>
+
+          {/* TextInputs always shown, editable only in edit mode */}
+          <Text style={styles.inputLabel}>Name</Text>
+          <TextInput
+              style={styles.input}
+              placeholder="Full Name"
+              placeholderTextColor={theme.colors.secondary_text}
+              value={profileData.name}
+              onChangeText={text => handleChange('name', text)}
+              editable={isEditMode}
+          />
+
+          <Text style={styles.inputLabel}>Email</Text>
+          <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor={theme.colors.secondary_text}
+              value={profileData.email}
+              onChangeText={text => handleChange('email', text)}
+              editable={isEditMode}
+          />
+
+          <Text style={styles.inputLabel}>Contact No.</Text>
+          <TextInput
+              style={styles.input}
+              placeholder="Phone Number"
+              placeholderTextColor={theme.colors.secondary_text}
+              value={profileData.phone}
+              onChangeText={text => handleChange('phone', text)}
+              editable={isEditMode}
+              keyboardType="phone-pad"
+          />
+
+          <Text style={styles.inputLabel}>City</Text>
+          <TextInput
+              style={styles.input}
+              placeholder="City"
+              placeholderTextColor={theme.colors.secondary_text}
+              value={profileData.city}
+              onChangeText={text => handleChange('city', text)}
+              editable={isEditMode}
+          />
+        </View>
+
+        {isEditMode && (
+            <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+              <Text style={styles.saveButtonText}>Save</Text>
+            </TouchableOpacity>
+        )}
+      </SafeAreaView>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.background,
+    marginTop:40
   },
   header: {
     alignItems: 'center',
@@ -157,6 +198,83 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     fontWeight: '500',
   },
+  menuIcon: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    zIndex: 10,
+  },
+  menuOverlay: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+    paddingTop: 50,
+    paddingRight: 20,
+    backgroundColor: 'rgba(0,0,0,0.1)',
+  },
+  dropdownMenu: {
+    backgroundColor: theme.colors.surface,
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  dropdownItem: {
+    paddingVertical: 8,
+    fontSize: 16,
+    color: theme.colors.text,
+  },
+  avatar: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+  },
+  editIcon: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5,
+    backgroundColor: theme.colors.primary,
+    padding: 6,
+    borderRadius: 20,
+  },
+  inputLabel: {
+    alignSelf: 'flex-start',
+    marginLeft: '10%',
+    fontSize: 14,
+    fontWeight: '600',
+    color: theme.colors.text,
+    marginTop: 12,
+  },
+  input: {
+    width: '80%',
+    fontSize: 16,
+    marginVertical: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: 6,
+    color: theme.colors.text,
+    backgroundColor: theme.colors.surface,
+  },
+  saveButton: {
+    width: '80%',
+    marginTop: 20,
+    alignSelf: 'center',
+    backgroundColor: theme.colors.primary,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 10,
+  },
+  saveButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
 });
 
-export default ProfileTab; 
+export default ProfileTab;
