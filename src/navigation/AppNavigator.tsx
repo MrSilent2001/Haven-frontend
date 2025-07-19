@@ -7,6 +7,8 @@ import { RootStackParamList } from '../types';
 import { SCREEN_NAMES } from '../constants';
 import { LoginScreen } from '../screens';
 import { RegisterScreen } from '../screens';
+import HealthTips from '../screens/HealthTips/HealthTips';
+import DailyMoodScreen from '../screens/DailyMood/DailyMoodScreen';
 
 
 import TabsLayout from '../app/(tabs)';
@@ -47,6 +49,18 @@ const AppNavigator: React.FC = () => {
           name={"Tabs" as keyof RootStackParamList}
           component={TabsLayout}
           options={{ title: 'Haven' }}
+        />
+
+        <Stack.Screen
+          name={SCREEN_NAMES.HEALTH_TIPS as keyof RootStackParamList}
+          component={HealthTips}
+          options={{ title: 'Health Tips' }}
+        />
+
+        <Stack.Screen
+          name={SCREEN_NAMES.DAILY_MOOD as keyof RootStackParamList}
+          component={DailyMoodScreen}
+          options={{ title: 'Daily Mood Check' }}
         />
    
       </Stack.Navigator>

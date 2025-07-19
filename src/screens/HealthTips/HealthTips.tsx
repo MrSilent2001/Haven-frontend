@@ -52,7 +52,7 @@ const tips = [
 ];
 
 
-const HealthTips = () => {
+export const HealthTips = () => {
     const scaleAnim = useRef(new Animated.Value(1)).current;
 
     const handleStart = (pattern: string, name: string) => {

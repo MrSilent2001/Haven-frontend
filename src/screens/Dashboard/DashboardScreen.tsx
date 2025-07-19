@@ -17,8 +17,8 @@ import { SCREEN_NAMES } from '../../constants';
 type DashboardNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const CARDS = [
-    { title: 'Daily Mood Check', icon: 'smile', screen: SCREEN_NAMES.HOME },
-    { title: 'Health Tips', icon: 'heart', screen: SCREEN_NAMES.HOME },
+    { title: 'Daily Mood Check', icon: 'smile', screen: SCREEN_NAMES.DAILY_MOOD },
+    { title: 'Health Tips', icon: 'heart', screen: SCREEN_NAMES.HEALTH_TIPS },
     { title: 'Meditation & Exercises', icon: 'sun', screen: SCREEN_NAMES.EXERCISES },
     { title: 'Therapists & Consultants', icon: 'user-check', screen: SCREEN_NAMES.SEARCH_THERAPISTS },
     { title: 'Smart AI', icon: 'cpu', screen: SCREEN_NAMES.HOME, premium: true },
@@ -38,11 +38,14 @@ const Dashboard = () => {
             // Switch to profile tab where therapist search is located
             const tabNavigation = navigation.getParent();
             tabNavigation?.navigate('SearchTherapists', { screen: 'SearchTherapists' });
-        }else if (screen === SCREEN_NAMES.HEALTH_TIPS) {
-            // Switch to profile tab where therapist search is located
-            const tabNavigation = navigation.getParent();
-            tabNavigation?.navigate('HealthTips', { screen: 'HealthTips' });
-        } else {
+        } else if (screen === SCREEN_NAMES.HEALTH_TIPS) {
+            // Navigate to HealthTips screen
+            navigation.navigate(screen as keyof RootStackParamList);
+        } else if (screen === SCREEN_NAMES.DAILY_MOOD) {
+            // Navigate to DailyMood screen
+            navigation.navigate(screen as keyof RootStackParamList);
+        }
+        else {
             // For other screens, navigate within the current stack
             navigation.navigate(screen as keyof RootStackParamList);
         }
