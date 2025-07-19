@@ -6,7 +6,7 @@ import { RootStackParamList } from '../types';
 import { SCREEN_NAMES } from '../constants';
 import { LoginScreen } from '../screens';
 import { RegisterScreen } from '../screens';
-import { DashboardScreen } from '../screens';
+
 import { SearchTherapistsScreen } from '../screens';
 import { ViewAvailableSlotsScreen } from '../screens';
 
