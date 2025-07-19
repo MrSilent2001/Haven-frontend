@@ -19,12 +19,18 @@ const AppNavigator: React.FC = () => {
     <SafeAreaProvider>
       <NavigationContainer>
       <Stack.Navigator
-        // Start directly with tabs (bypassing login)
-        initialRouteName={"Tabs" as keyof RootStackParamList}
+        // Start with home screen
+        initialRouteName={SCREEN_NAMES.HOME}
         screenOptions={{
           headerShown: false,
         }}
       >
+        <Stack.Screen
+          name={SCREEN_NAMES.HOME}
+          component={HomeScreen}
+          options={{ title: 'Welcome' }}
+        />
+
         <Stack.Screen
           name={SCREEN_NAMES.LOGIN}
           component={LoginScreen}
