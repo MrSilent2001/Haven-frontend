@@ -1,9 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Button } from '../../components';
 import { NavigationProps } from '../../types';
 import theme from '../../styles/theme';
 import { SCREEN_NAMES } from '../../constants';
+
+const { width, height } = Dimensions.get('window');
 
 interface HomeScreenProps extends NavigationProps {}
 
@@ -18,40 +21,51 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
+      <LinearGradient
+        colors={['#f8fafc', '#e2e8f0', '#cbd5e1']}
+        style={styles.gradientBackground}
+      >
+        {/* Hero Section */}
         <View style={styles.heroSection}>
+          <View style={styles.logoContainer}>
+            <Text style={styles.logoIcon}>🕊️</Text>
+          </View>
           <Text style={styles.title}>Welcome to Haven</Text>
-          <Text style={styles.subtitle}>Your mental health companion</Text>
-          <Text style={styles.description}>
-            Discover peace of mind with guided meditation, breathing exercises, 
-            and professional support all in one place.
-          </Text>
+          <Text style={styles.subtitle}>Your mental wellness companion</Text>
         </View>
-        
-        <View style={styles.featureContainer}>
-          <View style={styles.feature}>
-            <Text style={styles.featureIcon}>🧘‍♀️</Text>
-            <Text style={styles.featureText}>Guided Meditation</Text>
-          </View>
-          <View style={styles.feature}>
-            <Text style={styles.featureIcon}>💨</Text>
-            <Text style={styles.featureText}>Breathing Exercises</Text>
-          </View>
-          <View style={styles.feature}>
-            <Text style={styles.featureIcon}>👨‍⚕️</Text>
-            <Text style={styles.featureText}>Professional Support</Text>
+
+        {/* Features Row */}
+        <View style={styles.featuresSection}>
+          <View style={styles.featureRow}>
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>🧘‍♀️</Text>
+              <Text style={styles.featureText}>Meditation</Text>
+            </View>
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>💨</Text>
+              <Text style={styles.featureText}>Breathing</Text>
+            </View>
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>👨‍⚕️</Text>
+              <Text style={styles.featureText}>Support</Text>
+            </View>
           </View>
         </View>
-        
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Get Started"
-            onPress={handleGetStarted}
-            variant="primary"
-            fullWidth
-          />
+
+        {/* Call to Action */}
+        <View style={styles.ctaSection}>
+          <Text style={styles.ctaTitle}>Ready to begin your journey?</Text>
+          <Text style={styles.ctaSubtitle}>Start your path to better mental wellness</Text>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Get Started"
+              onPress={handleGetStarted}
+              variant="primary"
+              fullWidth
+            />
+          </View>
         </View>
-      </View>
+      </LinearGradient>
     </SafeAreaView>
   );
 };
@@ -59,48 +73,65 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: '#f8fafc',
   },
-  content: {
+  gradientBackground: {
     flex: 1,
     justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 24,
-    paddingTop: 60,
-    paddingBottom: 40,
+    paddingVertical: 40,
   },
+  
+  // Hero Section
   heroSection: {
     alignItems: 'center',
-    marginTop: 40,
+    paddingHorizontal: 24,
+    flex: 2,
+    justifyContent: 'center',
+  },
+  logoContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  logoIcon: {
+    fontSize: 36,
   },
   title: {
     fontSize: 36,
-    fontWeight: 'bold',
-    color: theme.colors.primary,
+    fontWeight: '800',
+    color: '#1e293b',
     marginBottom: 12,
     textAlign: 'center',
+    letterSpacing: -1,
   },
   subtitle: {
-    fontSize: 20,
-    color: theme.colors.text,
+    fontSize: 18,
+    color: '#64748b',
     textAlign: 'center',
-    marginBottom: 16,
-    fontWeight: '500',
+    fontWeight: '600',
   },
-  description: {
-    fontSize: 16,
-    color: theme.colors.secondary_text,
-    textAlign: 'center',
-    lineHeight: 24,
-    paddingHorizontal: 20,
+  
+  // Features Section
+  featuresSection: {
+    paddingHorizontal: 24,
+    flex: 1,
+    justifyContent: 'center',
   },
-  featureContainer: {
+  featureRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '100%',
-    marginVertical: 40,
+    alignItems: 'center',
   },
-  feature: {
+  featureItem: {
     alignItems: 'center',
     flex: 1,
   },
@@ -110,20 +141,34 @@ const styles = StyleSheet.create({
   },
   featureText: {
     fontSize: 14,
-    color: theme.colors.text,
+    color: '#1e293b',
     textAlign: 'center',
-    fontWeight: '500',
+    fontWeight: '600',
+  },
+  
+  // CTA Section
+  ctaSection: {
+    paddingHorizontal: 24,
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  ctaTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#1e293b',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  ctaSubtitle: {
+    fontSize: 16,
+    color: '#64748b',
+    textAlign: 'center',
+    marginBottom: 32,
+    lineHeight: 24,
   },
   buttonContainer: {
     width: '100%',
-    alignItems: 'center',
-  },
-  loginHint: {
-    fontSize: 12,
-    color: theme.colors.secondary_text,
-    textAlign: 'center',
-    marginTop: 12,
-    fontStyle: 'italic',
   },
 });
 

@@ -47,7 +47,7 @@ const LoginScreen = () => {
             secureTextEntry={!showPassword}
           />
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
-            <Text>{showPassword ? '🙈' : '👁️'}</Text>
+            <Text>{showPassword ?  '👁️': '🙈'}</Text>
           </TouchableOpacity>
         </View>
       </View>
