@@ -6,6 +6,9 @@ import { RootStackParamList } from '../types';
 import { SCREEN_NAMES } from '../constants';
 import { LoginScreen } from '../screens';
 import { RegisterScreen } from '../screens';
+import { DashboardScreen } from '../screens';
+import { SearchTherapistsScreen } from '../screens';
+import { ViewAvailableSlotsScreen } from '../screens';
 
 import ExercisesStackNavigator from './ExercisesStackNavigator';
 
@@ -21,13 +24,7 @@ const AppNavigator: React.FC = () => {
         // Set Home as initial screen
         initialRouteName={SCREEN_NAMES.HOME}
         screenOptions={{
-          headerStyle: {
-            backgroundColor: '#F9CC48', // gold gradient start color
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerShown: false,
         }}
       >
         <Stack.Screen
@@ -57,6 +54,7 @@ const AppNavigator: React.FC = () => {
           component={RegisterScreen}
           options={{ title: 'Register' }}
         />
+
 
           <Stack.Screen
               name={SCREEN_NAMES.DASHBOARD as keyof RootStackParamList}
