@@ -54,7 +54,7 @@ const patterns = [
   },
 ];
 
-const BreathingExercisesScreen = () => {
+export const BreathingExercisesScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ExercisesStackParamList>>();
   const scaleAnim = useRef(new Animated.Value(1)).current;
 

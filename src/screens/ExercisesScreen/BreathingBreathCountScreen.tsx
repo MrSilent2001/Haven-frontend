@@ -17,7 +17,7 @@ function parsePattern(pattern: string) {
   return pattern.split('-').map(Number);
 }
 
-const BreathingBreathCountScreen = () => {
+export const BreathingBreathCountScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ExercisesStackParamList>>();
   const route = useRoute<RouteProp<ExercisesStackParamList, 'BreathingBreathCount'>>();
   const { pattern = '4-4-4-4', name = 'Breathing' } = route.params ?? {};

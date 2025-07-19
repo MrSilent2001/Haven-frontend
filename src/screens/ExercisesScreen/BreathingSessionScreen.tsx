@@ -19,7 +19,7 @@ function parsePattern(pattern: string) {
   return pattern.split('-').map(Number);
 }
 
-const BreathingSessionScreen = () => {
+export const BreathingSessionScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ExercisesStackParamList>>();
   const route = useRoute<RouteProp<ExercisesStackParamList, 'BreathingSession'>>();
   const { pattern = '4-4-4-4', name = 'Breathing', duration = 60 } = route.params ?? {};

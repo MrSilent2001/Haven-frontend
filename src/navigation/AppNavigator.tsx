@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen } from '../screens';
+import { HomeScreen, ExercisesScreen } from '../screens';
 import { RootStackParamList } from '../types';
 import { SCREEN_NAMES } from '../constants';
 import { LoginScreen } from '../screens';
@@ -9,17 +9,17 @@ import { RegisterScreen } from '../screens';
 
 import ExercisesStackNavigator from './ExercisesStackNavigator';
 
-import DashboardScreen from "../screens/Dashboard";
+import DashboardScreen from "../screens/Dashboard/DashboardScreen";
 
-
+// Type assertion to ensure Dashboard is recognized
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        // TEMPORARY: Set Exercises as initial screen for testing
-        initialRouteName={SCREEN_NAMES.EXERCISES}
+        // Set Home as initial screen
+        initialRouteName={SCREEN_NAMES.HOME}
         screenOptions={{
           headerStyle: {
             backgroundColor: '#F9CC48', // gold gradient start color
@@ -37,6 +37,14 @@ const AppNavigator: React.FC = () => {
             title: 'Home',
           }}
         />
+
+        <Stack.Screen
+          name={SCREEN_NAMES.EXERCISES}
+          component={ExercisesScreen}
+          options={{
+            title: 'Exercises',
+          }}
+        />
         
         <Stack.Screen
           name={SCREEN_NAMES.LOGIN}
@@ -51,7 +59,7 @@ const AppNavigator: React.FC = () => {
         />
 
           <Stack.Screen
-              name={SCREEN_NAMES.DASHBOARD}
+              name={SCREEN_NAMES.DASHBOARD as keyof RootStackParamList}
               component={DashboardScreen}
               options={{
                   title: 'Profile',

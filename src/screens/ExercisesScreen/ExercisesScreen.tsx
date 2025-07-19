@@ -26,7 +26,7 @@ const practices = [
   },
 ];
 
-const ExercisesScreen = () => {
+export const ExercisesScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ExercisesStackParamList>>();
   return (
     <View style={styles.container}>
