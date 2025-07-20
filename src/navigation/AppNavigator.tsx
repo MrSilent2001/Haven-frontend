@@ -1,28 +1,28 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen } from '../screens';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { HomeScreen, ExercisesScreen, GuidedMeditationScreen, BreathingExercisesScreen, BreathingBreathCountScreen, BreathingSessionScreen } from '../screens';
 import { RootStackParamList } from '../types';
 import { SCREEN_NAMES } from '../constants';
 import { LoginScreen } from '../screens';
 import { RegisterScreen } from '../screens';
-import { DashboardScreen } from '../screens';
-import { SearchTherapistsScreen } from '../screens';
-import { ViewAvailableSlotsScreen } from '../screens';
-
-import ExercisesStackNavigator from './ExercisesStackNavigator';
-
-import DashboardScreen from "../screens/Dashboard";
+import HealthTips from '../screens/HealthTips/HealthTips';
+import DailyMoodScreen from '../screens/DailyMood/DailyMoodScreen';
 
 
+import TabsLayout from '../app/(tabs)';
+
+// Type assertion to ensure Dashboard is recognized
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
   return (
-    <NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
       <Stack.Navigator
-        // TEMPORARY: Set Exercises as initial screen for testing
-        initialRouteName={SCREEN_NAMES.EXERCISES}
+        // Start with home screen
+        initialRouteName={SCREEN_NAMES.HOME}
         screenOptions={{
           headerShown: false,
         }}
@@ -30,11 +30,9 @@ const AppNavigator: React.FC = () => {
         <Stack.Screen
           name={SCREEN_NAMES.HOME}
           component={HomeScreen}
-          options={{
-            headerShown: false,
-          }}
+          options={{ title: 'Welcome' }}
         />
-        
+
         <Stack.Screen
           name={SCREEN_NAMES.LOGIN}
           component={LoginScreen}
@@ -47,28 +45,27 @@ const AppNavigator: React.FC = () => {
           options={{ title: 'Register' }}
         />
 
-
         <Stack.Screen
-          name="Dashboard"
-          component={DashboardScreen}
-          options={{ title: 'Dashboard' }}
+          name={"Tabs" as keyof RootStackParamList}
+          component={TabsLayout}
+          options={{ title: 'Haven' }}
         />
 
         <Stack.Screen
-          name="SearchTherapists"
-          component={SearchTherapistsScreen}
-          options={{ title: 'Search Therapists' }}
+          name={SCREEN_NAMES.HEALTH_TIPS as keyof RootStackParamList}
+          component={HealthTips}
+          options={{ title: 'Health Tips' }}
         />
 
         <Stack.Screen
-          name="ViewAvailableSlots"
-          component={ViewAvailableSlotsScreen}
-          options={{ title: 'Available Slots' }}
+          name={SCREEN_NAMES.DAILY_MOOD as keyof RootStackParamList}
+          component={DailyMoodScreen}
+          options={{ title: 'Daily Mood Check' }}
         />
-
-
+   
       </Stack.Navigator>
     </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 

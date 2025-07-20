@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons'; // or 'react-native-vector-icons/FontAwesome'
+import { ArrowLeftIcon } from 'react-native-heroicons/outline';
 import theme from '../../styles/theme';
 
 const getWeekDates = () => {
@@ -70,7 +71,7 @@ const ViewAvailableSlotsScreen = () => {
     <ScrollView style={styles.bg} contentContainerStyle={{ flexGrow: 1 }}>
       <View style={styles.container}>
         <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-          <Text style={styles.backArrow}>{'<'} Back</Text>
+          <ArrowLeftIcon size={24} color="#222" />
         </TouchableOpacity>
         <View style={styles.doctorCard}>
           <Image source={{ uri: therapist.image }} style={styles.avatar} />

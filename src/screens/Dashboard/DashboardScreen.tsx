@@ -8,41 +8,75 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Feather } from '@expo/vector-icons';
 import theme from '../../styles/theme';
+import { RootStackParamList } from '../../types';
+import { SCREEN_NAMES } from '../../constants';
+
+type DashboardNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const CARDS = [
-    { title: 'Daily Mood Check', icon: 'smile', screen: 'MoodCheck' },
-    { title: 'Health Tips', icon: 'heart', screen: 'HealthTips' },
-    { title: 'Meditation & Exercises', icon: 'sun', screen: 'Meditation' },
-    { title: 'Therapists & Consultants', icon: 'user-check', screen: 'Therapists' },
-    { title: 'Smart AI', icon: 'cpu', screen: 'SmartAI' },
-    { title: 'Crisis Support', icon: 'alert-triangle', screen: 'CrisisSupport' },
+    { title: 'Daily Mood Check', icon: 'smile', screen: SCREEN_NAMES.DAILY_MOOD },
+    { title: 'Health Tips', icon: 'heart', screen: SCREEN_NAMES.HEALTH_TIPS },
+    { title: 'Meditation & Exercises', icon: 'sun', screen: SCREEN_NAMES.EXERCISES },
+    { title: 'Therapists & Consultants', icon: 'user-check', screen: SCREEN_NAMES.SEARCH_THERAPISTS },
+    { title: 'Smart AI', icon: 'cpu', screen: SCREEN_NAMES.HOME, premium: true },
+    { title: 'Crisis Support', icon: 'alert-triangle', screen: SCREEN_NAMES.HOME, premium: true },
 ];
 
 const Dashboard = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<DashboardNavigationProp>();
 
     const handleCardPress = (screen: string) => {
-        navigation.navigate(screen as never);
+        // Navigate based on the screen type
+        if (screen === SCREEN_NAMES.EXERCISES) {
+            // Switch to exercises tab
+            const tabNavigation = navigation.getParent();
+            tabNavigation?.navigate('ExercisesTab');
+        } else if (screen === SCREEN_NAMES.SEARCH_THERAPISTS) {
+            // Switch to profile tab where therapist search is located
+            const tabNavigation = navigation.getParent();
+            tabNavigation?.navigate('SearchTherapists', { screen: 'SearchTherapists' });
+        } else if (screen === SCREEN_NAMES.HEALTH_TIPS) {
+            // Navigate to HealthTips screen
+            navigation.navigate(screen as keyof RootStackParamList);
+        } else if (screen === SCREEN_NAMES.DAILY_MOOD) {
+            // Navigate to DailyMood screen
+            navigation.navigate(screen as keyof RootStackParamList);
+        }
+        else {
+            // For other screens, navigate within the current stack
+            navigation.navigate(screen as keyof RootStackParamList);
+        }
     };
 
-    const renderCard = ({ item }: { item: typeof CARDS[number] }) => (
-        <TouchableOpacity
-            style={styles.card}
-            onPress={() => handleCardPress(item.screen)}
-            activeOpacity={0.85}
-        >
-            <View style={styles.iconWrapper}>
-                <Feather name={item.icon as any} size={32} color={theme.colors.primary} />
-            </View>
-            <Text style={styles.cardText}>{item.title}</Text>
-        </TouchableOpacity>
-    );
+    const renderCard = ({ item }: { item: typeof CARDS[number] }) => {
+        const isPremium = item.premium;
+
+        return (
+            <TouchableOpacity
+                style={[styles.card, isPremium && styles.disabledCard]}
+                onPress={() => !isPremium && handleCardPress(item.screen)}
+                activeOpacity={isPremium ? 1 : 0.85}
+            >
+                <View style={styles.iconWrapper}>
+                    <Feather name={item.icon as any} size={32} color={theme.colors.primary} />
+                </View>
+                <Text style={styles.cardText}>{item.title}</Text>
+
+                {isPremium && (
+                    <View style={styles.premiumBadge}>
+                        <Text style={styles.premiumBadgeText}>Premium</Text>
+                    </View>
+                )}
+            </TouchableOpacity>
+        );
+    };
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Welcome Back 👋</Text>
+            <Text style={styles.title}>Welcome Stephanie 👋</Text>
             <Text style={styles.subtitle}>How can we help you today?</Text>
             <FlatList
                 data={CARDS}
@@ -72,6 +106,7 @@ const styles = StyleSheet.create({
         color: theme.colors.text,
         marginBottom: 6,
         textAlign: 'left',
+        marginTop: 40,
     },
     subtitle: {
         fontSize: 16,
@@ -111,6 +146,23 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: theme.colors.text,
         textAlign: 'center',
+    },
+    premiumBadge: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        backgroundColor: '#FFD700',
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 12,
+    },
+    premiumBadgeText: {
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: '#000',
+    },
+    disabledCard: {
+        opacity: 0.5,
     },
 });
 

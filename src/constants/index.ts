@@ -20,16 +20,17 @@ export const SCREEN_NAMES = {
   SETTINGS: 'Settings',
   LOGIN: 'Login',
   REGISTER: 'Register',
-
+  DASHBOARD: 'Dashboard',
   EXERCISES: 'Exercises',
   EXERCISES_HOME: 'ExercisesHome',
+  BREATHING_BREATH_COUNT: 'BreathingBreathCount',
   GUIDED_MEDITATION: 'GuidedMeditation',
   BREATHING_EXERCISES: 'BreathingExercises',
   BREATHING_SESSION: 'BreathingSession',
-  BREATHING_BREATH_COUNT: 'BreathingBreathCount',
-
-  DASHBOARD: 'Dashboard',
-
+  SEARCH_THERAPISTS: 'SearchTherapists',
+  VIEW_AVAILABLE_SLOTS: 'ViewAvailableSlots',
+  HEALTH_TIPS: 'HealthTips',
+  DAILY_MOOD: 'DailyMood'
 } as const;
 
 export const API_ENDPOINTS = {

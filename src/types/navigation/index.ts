@@ -17,10 +17,17 @@ export type RootStackParamList = {
   Notifications: undefined;
   About: undefined;
   Dashboard: undefined;
-
+  Exercises: undefined;
+  ExercisesHome: undefined;
+  BreathingBreathCount: { pattern: string; name: string };
+  GuidedMeditation: undefined;
+  BreathingExercises: undefined;
+  BreathingSession: { pattern: string; name: string; duration?: number };
   SearchTherapists: undefined;
   ViewAvailableSlots: undefined;
-
+  HealthTips: undefined;
+  DailyMood: undefined;
+  Tabs: undefined;
 };
 
 export type TabParamList = {
@@ -46,10 +53,10 @@ export type MainStackParamList = {
 
 export type ExercisesStackParamList = {
   ExercisesHome: undefined;
-  GuidedMeditation: undefined;
   BreathingExercises: undefined;
   BreathingBreathCount: { pattern: string; name: string };
   BreathingSession: { pattern: string; name: string; duration?: number };
+  GuidedMeditation: undefined;
 };
 
 // Screen props types

@@ -4,7 +4,9 @@ import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SCREEN_NAMES } from '../../constants';
-import { ExercisesStackParamList } from '../../types/navigation';
+import { RootStackParamList } from '../../types/navigation';
+
+type ExercisesNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const GREEN = '#47978d';
 const LIGHT_GREEN = '#d7f5f0';
@@ -27,7 +29,7 @@ const practices = [
 ];
 
 const ExercisesScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<ExercisesStackParamList>>();
+  const navigation = useNavigation<ExercisesNavigationProp>();
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
@@ -37,9 +39,9 @@ const ExercisesScreen = () => {
           <Text style={styles.greeting}>Hi, <Text style={styles.name}>Stephanie!</Text></Text>
           <Text style={styles.question}>What do you prefer today?</Text>
         </View>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Text style={styles.menu}>{MENU}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       {/* Available Practices */}
@@ -47,10 +49,10 @@ const ExercisesScreen = () => {
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Available Practices</Text>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8 }}>
+        <View style={styles.practiceCardsContainer}>
           <TouchableOpacity
             style={[styles.practiceCard, practices[0].highlight && styles.practiceCardHighlight]}
-            onPress={() => navigation.navigate(SCREEN_NAMES.GUIDED_MEDITATION)}
+            onPress={() => navigation.navigate('GuidedMeditation' as any)}
             activeOpacity={0.8}
           >
             <Image source={practices[0].image} style={styles.practiceImage} resizeMode="contain" />
@@ -58,13 +60,13 @@ const ExercisesScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.practiceCard, practices[1].highlight && styles.practiceCardHighlight]}
-            onPress={() => navigation.navigate(SCREEN_NAMES.BREATHING_EXERCISES)}
+            onPress={() => navigation.navigate('BreathingExercises' as any)}
             activeOpacity={0.8}
           >
             <Image source={practices[1].image} style={styles.practiceImage} resizeMode="contain" />
             <Text style={styles.practiceTitle}>{practices[1].title}</Text>
           </TouchableOpacity>
-        </ScrollView>
+        </View>
       </View>
 
       {/* Weekly Statistics */}
@@ -88,6 +90,8 @@ const ExercisesScreen = () => {
   );
 };
 
+export default ExercisesScreen;
+
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const CARD_WIDTH = SCREEN_WIDTH * 0.44;
 const CARD_HEIGHT = SCREEN_WIDTH * 0.56;
@@ -103,20 +107,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     marginBottom: 12,
+    marginTop: 35,
   },
   avatar: {
     fontSize: 38,
     marginRight: 12,
   },
   greeting: {
-    fontSize: 18,
+    fontSize: 28,
     color: '#222',
     fontWeight: '600',
   },
   name: {
     color: GREEN,
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 28,
   },
   question: {
     fontSize: 14,
@@ -147,6 +152,10 @@ const styles = StyleSheet.create({
     color: GREEN,
     fontWeight: '600',
     fontSize: 14,
+  },
+  practiceCardsContainer: {
+    flexDirection: 'row',
+    gap: 10,
   },
   practiceCard: {
     width: CARD_WIDTH,
@@ -242,6 +251,4 @@ const styles = StyleSheet.create({
     backgroundColor: GREEN,
     borderRadius: 1,
   },
-});
-
-export default ExercisesScreen; 
+}); 
