@@ -8,20 +8,19 @@ import { ExercisesStackParamList } from '../../types/navigation';
 
 const GREEN = '#47978d';
 const LIGHT_GREEN = '#d7f5f0';
-const AVATAR = '👩‍🦰'; // Emoji as avatar placeholder
 const MENU = '☰'; // Emoji as menu icon
 
 const practices = [
   {
     key: 'guided',
     title: 'Guided Meditation',
-    image: require('../../../assets/excercise1.png'),
+    image: require('../../../assets/GuidedMedExcercise.png'),
     highlight: false,
   },
   {
     key: 'breathing',
     title: 'Breathing Exercise',
-    image: require('../../../assets/excercise2.png'),
+    image: require('../../../assets/BreathingExcercise.png'),
     highlight: true,
   },
 ];
@@ -29,42 +28,32 @@ const practices = [
 const ExercisesScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ExercisesStackParamList>>();
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
       <StatusBar style="dark" />
-      {/* Header */}
-      <View style={styles.header}>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.greeting}>Hi, <Text style={styles.name}>Stephanie!</Text></Text>
-          <Text style={styles.question}>What do you prefer today?</Text>
-        </View>
-        <TouchableOpacity>
-          <Text style={styles.menu}>{MENU}</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Available Practices */}
+      <Text style={styles.pageTopic}>{"Start your today's\nMindful Choices here !"}</Text>
       <View style={styles.section}>
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Available Practices</Text>
+        <View style={{ gap: 24 }}>
+          <View style={{ alignItems: 'center' }}>
+            <TouchableOpacity
+              style={styles.practiceCard}
+              onPress={() => navigation.navigate(SCREEN_NAMES.GUIDED_MEDITATION)}
+              activeOpacity={0.8}
+            >
+              <Image source={practices[0].image} style={styles.practiceImage} />
+            </TouchableOpacity>
+            <Text style={styles.practiceLabel}>{practices[0].title}</Text>
+          </View>
+          <View style={{ alignItems: 'center' }}>
+            <TouchableOpacity
+              style={styles.practiceCard}
+              onPress={() => navigation.navigate(SCREEN_NAMES.BREATHING_EXERCISES)}
+              activeOpacity={0.8}
+            >
+              <Image source={practices[1].image} style={styles.practiceImage} />
+            </TouchableOpacity>
+            <Text style={styles.practiceLabel}>{practices[1].title}</Text>
+          </View>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8 }}>
-          <TouchableOpacity
-            style={[styles.practiceCard, practices[0].highlight && styles.practiceCardHighlight]}
-            onPress={() => navigation.navigate(SCREEN_NAMES.GUIDED_MEDITATION)}
-            activeOpacity={0.8}
-          >
-            <Image source={practices[0].image} style={styles.practiceImage} resizeMode="contain" />
-            <Text style={styles.practiceTitle}>{practices[0].title}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.practiceCard, practices[1].highlight && styles.practiceCardHighlight]}
-            onPress={() => navigation.navigate(SCREEN_NAMES.BREATHING_EXERCISES)}
-            activeOpacity={0.8}
-          >
-            <Image source={practices[1].image} style={styles.practiceImage} resizeMode="contain" />
-            <Text style={styles.practiceTitle}>{practices[1].title}</Text>
-          </TouchableOpacity>
-        </ScrollView>
       </View>
 
       {/* Weekly Statistics */}
@@ -84,7 +73,7 @@ const ExercisesScreen = () => {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -149,21 +138,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   practiceCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
     backgroundColor: '#e6f7f2',
-    borderRadius: 18,
-    padding: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 4,
-    borderWidth: 2,
-    borderColor: GREEN,
+    borderRadius: 28,
+    padding: 0,
+    marginBottom: 8,
+    // borderWidth: 2, // Remove border from card
+    // borderColor: GREEN,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 2,
+    overflow: 'visible',
   },
   practiceCardHighlight: {
     // No longer needed, both cards have the same frame
@@ -176,15 +166,40 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   practiceImage: {
-    width: '70%',
-    height: '48%',
-    marginBottom: 14,
-    resizeMode: 'contain',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    zIndex: 2,
+    borderWidth: 2,
+    borderColor: GREEN,
+    borderRadius: 28,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  practiceLabelContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginLeft: CARD_WIDTH * 0.65,
+    zIndex: 2,
   },
   practiceTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#222',
+  },
+  practiceLabel: {
+    fontSize: 14,
+    color: '#555',
+    marginTop: 8,
+    textAlign: 'center',
   },
   statsCard: {
     backgroundColor: '#fff',
@@ -241,6 +256,15 @@ const styles = StyleSheet.create({
     height: 2,
     backgroundColor: GREEN,
     borderRadius: 1,
+  },
+  pageTopic: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#222',
+    textAlign: 'center',
+    marginTop: 18,
+    marginBottom: 8,
+    lineHeight: 34,
   },
 });
 
