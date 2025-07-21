@@ -2,14 +2,14 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { HomeScreen, ExercisesScreen, GuidedMeditationScreen, BreathingExercisesScreen, BreathingBreathCountScreen, BreathingSessionScreen } from '../screens';
+import { HomeScreen, ExercisesScreen, GuidedMeditationScreen, BreathingExercisesScreen, BreathingBreathCountScreen, BreathingSessionScreen, ViewAvailableSlotsScreen } from '../screens';
 import { RootStackParamList } from '../types';
 import { SCREEN_NAMES } from '../constants';
 import { LoginScreen } from '../screens';
 import { RegisterScreen } from '../screens';
 import HealthTips from '../screens/HealthTips/HealthTips';
 import DailyMoodScreen from '../screens/DailyMood/DailyMoodScreen';
-
+import SearchTherapistsScreen from '../screens/SearchTherapistScreen/SearchTherapistsScreen'
 
 import TabsLayout from '../app/(tabs)';
 
@@ -61,6 +61,18 @@ const AppNavigator: React.FC = () => {
           name={SCREEN_NAMES.DAILY_MOOD as keyof RootStackParamList}
           component={DailyMoodScreen}
           options={{ title: 'Daily Mood Check' }}
+        />
+
+        <Stack.Screen
+          name={SCREEN_NAMES.SEARCH_THERAPISTS as keyof RootStackParamList}
+          component={SearchTherapistsScreen}
+          options={{ title: 'Therapists & Consultants' }}
+        />
+
+        <Stack.Screen
+          name={SCREEN_NAMES.VIEW_AVAILABLE_SLOTS as keyof RootStackParamList}
+          component={ViewAvailableSlotsScreen}
+          options={{ title: '' }}
         />
    
       </Stack.Navigator>

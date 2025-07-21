@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, TextInput, Alert } from 'react-native';
 import theme from '../../styles/theme';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { TherapistStackParamList } from '../../app/(tabs)/therapists';
 import { MagnifyingGlassIcon, ArrowLeftIcon } from 'react-native-heroicons/outline';
 
 const therapists = [
@@ -75,7 +77,7 @@ const appointments = [
 const SearchTherapistsScreen = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [search, setSearch] = useState('');
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<TherapistStackParamList>>();
   const [activeTab, setActiveTab] = useState<'search' | 'appointments'>('search');
   const [appointmentsList, setAppointmentsList] = useState(appointments);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -94,7 +96,7 @@ const SearchTherapistsScreen = () => {
         style={[styles.card, isSelected && styles.highlightCard]}
         onPress={() => {
           setSelectedId(item.id);
-          navigation.navigate('ViewAvailableSlots' as any, { therapist: item });
+          navigation.navigate('ViewAvailableSlots', { therapist: item });
         }}
         activeOpacity={0.85}
       >

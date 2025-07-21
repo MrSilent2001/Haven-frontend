@@ -35,9 +35,8 @@ const Dashboard = () => {
             const tabNavigation = navigation.getParent();
             tabNavigation?.navigate('ExercisesTab');
         } else if (screen === SCREEN_NAMES.SEARCH_THERAPISTS) {
-            // Switch to profile tab where therapist search is located
-            const tabNavigation = navigation.getParent();
-            tabNavigation?.navigate('SearchTherapists', { screen: 'SearchTherapists' });
+            // Navigate directly to SearchTherapists screen in the root stack
+            navigation.navigate('SearchTherapists' as any);
         } else if (screen === SCREEN_NAMES.HEALTH_TIPS) {
             // Navigate to HealthTips screen
             navigation.navigate(screen as keyof RootStackParamList);
